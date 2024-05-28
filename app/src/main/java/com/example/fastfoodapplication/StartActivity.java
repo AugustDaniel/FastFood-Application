@@ -15,9 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class StartActivity extends AppCompatActivity {
 
     private static final String LOGTAG = ControllerActivity.class.getName();
-    public Button tutorial;
-    public Button play;
-    public Button leaderboard;
+    private Button tutorial;
+    private Button play;
+    private Button leaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

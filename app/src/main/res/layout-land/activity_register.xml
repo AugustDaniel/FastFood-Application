@@ -26,8 +26,8 @@
         android:id="@+id/textInputLayout"
         android:layout_width="315dp"
         android:layout_height="46dp"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="359dp"
         tools:layout_editor_absoluteY="82dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -36,16 +36,8 @@
             android:layout_height="wrap_content"
             android:hint="naam"
             app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"
-            app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline"/>
+            app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <Spinner
-        android:id="@+id/activity_register_spinner_cars"
-        android:layout_width="258dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_register_button_continue"
-        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_register_upper_guideline"
