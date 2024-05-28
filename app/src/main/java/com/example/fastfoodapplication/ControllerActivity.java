@@ -1,0 +1,70 @@
+package com.example.fastfoodapplication;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class ControllerActivity extends AppCompatActivity {
+
+    private static final String LOGTAG = ControllerActivity.class.getName();
+    public Button controllerLeft;
+    public Button controllerRight;
+    public Button controllerGasPedal;
+    public Button controllerBreakPedal;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_controller);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        controllerLeft = findViewById(R.id.activity_controller_button_left);
+        controllerRight = findViewById(R.id.activity_controller_button_right);
+        controllerGasPedal = findViewById(R.id.activity_controller_button_gas_pedal);
+        controllerBreakPedal = findViewById(R.id.activity_controller_button_break_pedal);
+
+        controllerLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(LOGTAG,controllerLeft.getId() + " clicked");
+            }
+        });
+
+        controllerRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(LOGTAG,controllerRight.getId() + " clicked");
+            }
+        });
+
+        controllerGasPedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+            }
+        });
+
+        controllerBreakPedal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(LOGTAG,controllerBreakPedal.getId() + " clicked");
+            }
+        });
+    }
+
+
+}
