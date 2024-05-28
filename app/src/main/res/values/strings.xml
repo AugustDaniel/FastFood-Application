@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FastFood Application</string>
+    <string name="leaderboard_title">Leaderboard</string>
 </resources>
