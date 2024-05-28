@@ -5,4 +5,5 @@
     <string name="start">Start</string>
     <string name="uitleg">Uitleg</string>
     <string name="scorebord">Scorebord</string>
+    <string name="leaderboard_title">Leaderboard</string>
 </resources>
