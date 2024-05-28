@@ -10,7 +10,7 @@
         android:layout_width="251dp"
         android:layout_height="70dp"
         android:layout_marginBottom="128dp"
-        android:text="@string/activity_register_continue"
+        android:text="@string/continue_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:text="@string/activity_register_explanation"
+        android:text="@string/explanation"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
