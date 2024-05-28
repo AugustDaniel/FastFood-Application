@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StartActivity">
+
+    <TextView
+        android:id="@+id/activity_start_welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welkom"
+        android:textSize="48sp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="@id/activity_start_logo_guideline"
+        app:layout_constraintStart_toStartOf="@id/activity_start_left_vertical_guideline"
+        app:layout_constraintEnd_toEndOf="@id/activity_start_right_vertical_guideline" />
+
+    <Button
+        android:id="@+id/activity_start_tutorial_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/uitleg"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/activity_start_welcome_text"
+        app:layout_constraintStart_toStartOf="@id/activity_start_inner_left_vertical_guideline"
+        app:layout_constraintEnd_toEndOf="@id/activity_start_inner_right_vertical_guideline" />
+
+    <Button
+        android:id="@+id/activity_start_play_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/start"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/activity_start_inner_left_vertical_guideline"
+        app:layout_constraintEnd_toEndOf="@id/activity_start_inner_right_vertical_guideline"
+        app:layout_constraintTop_toBottomOf="@id/activity_start_tutorial_button" />
+
+    <Button
+        android:id="@+id/activity_start_leaderboard_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/scorebord"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/activity_start_inner_left_vertical_guideline"
+        app:layout_constraintEnd_toEndOf="@id/activity_start_inner_right_vertical_guideline"
+        app:layout_constraintTop_toBottomOf="@id/activity_start_play_button" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_start_left_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="102dp"
+        app:layout_constraintGuide_percent="0.15"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_start_right_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_start_lower_horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_start_logo_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <ImageView
+        android:id="@+id/activity_start_logo_image_view"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:contentDescription="Logo"
+        app:layout_constraintBottom_toBottomOf="@id/activity_start_logo_guideline"
+        app:layout_constraintEnd_toEndOf="@id/activity_start_right_vertical_guideline"
+        app:layout_constraintStart_toStartOf="@id/activity_start_left_vertical_guideline"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_start_inner_left_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_start_inner_right_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
