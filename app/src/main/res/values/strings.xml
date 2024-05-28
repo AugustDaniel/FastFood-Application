@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FastFood Application</string>
+    <string name="explanation">Vul uw naam in, kies een auto en klik op doorgaan</string>
+    <string name="continue_text">Ga verder</string>
     <string name="start">Start</string>
     <string name="uitleg">Uitleg</string>
     <string name="scorebord">Scorebord</string>

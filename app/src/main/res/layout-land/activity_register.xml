@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register_upper_guide_line"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/activity_register_button_continue"
+        android:layout_width="251dp"
+        android:layout_height="70dp"
+        android:text="@string/continue_text"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline" />
+
+    <TextView
+        android:id="@+id/activity_register_text_view_name"
+        android:layout_width="202dp"
+        android:layout_height="87dp"
+        android:text="@string/explanation"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="315dp"
+        android:layout_height="46dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="359dp"
+        tools:layout_editor_absoluteY="82dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/activity_register_text_input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="naam"
+            app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"
+            app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/activity_register_spinner_cars"
+        android:layout_width="258dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_button_continue"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_register_upper_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".2" />
+
+    <ImageView
+        android:id="@+id/activity_register_image_view_logo"
+        android:layout_width="182dp"
+        android:layout_height="62dp"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline"
+        app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_register_left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".08" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_register_right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".92" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_register_lower_guidline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".8" />
+</androidx.constraintlayout.widget.ConstraintLayout>
