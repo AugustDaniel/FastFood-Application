@@ -6,10 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/activity_register_logo"
+        layout="@layout/activity_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_upper_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/activity_register_button_continue"
         android:layout_width="251dp"
         android:layout_height="70dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
         app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline" />
@@ -18,17 +30,20 @@
         android:id="@+id/activity_register_text_view_name"
         android:layout_width="202dp"
         android:layout_height="87dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="128dp"
         android:text="@string/explanation"
         app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
         app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="315dp"
-        android:layout_height="46dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="359dp"
-        tools:layout_editor_absoluteY="82dp">
+        android:layout_width="296dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_button_continue"
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline"
+        tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/activity_register_text_input_name"
@@ -36,16 +51,17 @@
             android:layout_height="wrap_content"
             android:hint="naam"
             app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"
-            app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline"/>
+            app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
         android:id="@+id/activity_register_spinner_cars"
-        android:layout_width="258dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_register_button_continue"
-        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline" />
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/activity_register_text_view_name" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_register_upper_guideline"
@@ -53,14 +69,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".2" />
-
-    <ImageView
-        android:id="@+id/activity_register_image_view_logo"
-        android:layout_width="182dp"
-        android:layout_height="62dp"
-        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline"
-        app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_register_left_guideline"

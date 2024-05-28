@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".FinishActivity">
 
+    <include
+        android:id="@+id/activity_leaderboard_logo"
+        layout="@layout/activity_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/activity_finish_logo_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/activity_finish_player_rank_text"
         android:layout_width="wrap_content"
@@ -78,13 +88,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/activity_finish_lower_horizontal_guideline" />
 
-    <ImageView
-        android:id="@+id/activity_finish_logo_image_view"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:contentDescription="Logo"
-        app:layout_constraintBottom_toBottomOf="@id/activity_finish_logo_guideline"
-        app:layout_constraintEnd_toEndOf="@id/activity_finish_right_vertical_guideline"
-        app:layout_constraintStart_toStartOf="@id/activity_finish_left_vertical_guideline"
-        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

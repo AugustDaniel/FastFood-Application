@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
+    <include
+        android:id="@+id/activitiy_start_logo"
+        layout="@layout/activity_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/activity_start_logo_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/activity_start_welcome_text"
         android:layout_width="wrap_content"
@@ -79,16 +89,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
-
-    <ImageView
-        android:id="@+id/activity_start_logo_image_view"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:contentDescription="Logo"
-        app:layout_constraintBottom_toBottomOf="@id/activity_start_logo_guideline"
-        app:layout_constraintEnd_toEndOf="@id/activity_start_right_vertical_guideline"
-        app:layout_constraintStart_toStartOf="@id/activity_start_left_vertical_guideline"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_start_inner_left_vertical_guideline"
