@@ -1,6 +1,7 @@
 package com.example.fastfoodapplication;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,13 @@ public class LeaderboardActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         leaderboard = ServerHandler.instance.requestLeaderboard();
         System.out.println(leaderboard);
