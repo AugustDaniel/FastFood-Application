@@ -56,13 +56,11 @@ public class ServerHandler {
                     }
 
                     Log.d(LOG_TAG, "Socket disconnected");
-                    showToast(context, "Disconnected");
+                    showToast(context, "Disconnected");  //TODO string res or remove
                 } catch (IOException e) {
                     Log.e(LOG_TAG, "Socket connection error", e);
                     showToast(context, "Connection error");
-                } catch (InterruptedException e) {
-                    Log.e(LOG_TAG, "Thread interrupted", e);
-                    Thread.currentThread().interrupt();
+                    cleanup();
                 } finally {
                     cleanup();
                 }
@@ -76,9 +74,24 @@ public class ServerHandler {
         );
     }
 
-    public Set<Map.Entry<String, LocalTime>> requestRace() {
+    public void startRace() {
+        if (isConnected()) {
+            try {
+                output.writeByte(1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-        return null;
+    public void waitForStart() {
+        if (isConnected()) {
+            try {
+                input.readBoolean();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public Set<Map.Entry<String, LocalTime>> requestLeaderboard() {
@@ -109,6 +122,11 @@ public class ServerHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void resetConnection() {
+        cleanup();
+        racing = false;
     }
 
     private boolean isConnected() {
