@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                     ServerHandler.instance.startRace();
                     handler.post(() -> {
                         Log.d(LOGTAG, "Going to start race");
-                        Intent intent = new Intent(RegisterActivity.this, ControllerActivity.class);
+                        Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);
                         startActivity(intent);
                         finish();
                     });

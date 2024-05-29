@@ -2,18 +2,14 @@ package com.example.fastfoodapplication;
 
 import android.util.Log;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.LocalTime;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ServerHandler {
 
@@ -28,14 +24,6 @@ public class ServerHandler {
     private ServerHandler() {
     }
 
-    private void checkConnection() throws Exception {
-//        if (isConnected()) {
-//            return;
-//        }
-
-        connect();
-    }
-
     public void connect() throws Exception {
         Log.d(LOG_TAG, "Socket trying to connect...");
         socket = new Socket();
@@ -46,47 +34,40 @@ public class ServerHandler {
     }
 
     public void startRace() throws Exception {
-        checkConnection();
-        output.writeByte(0);
-        output.flush();
+        try {
+            output.writeByte(0);
+            output.flush();
+        } catch (Exception e) {
+            connect();
+            startRace();
+        }
     }
 
     public void sendLap(Map.Entry<String, LocalTime> lapTime) throws Exception {
-        checkConnection();
+        Log.d(LOG_TAG, "sending lap");
         output.writeObject(lapTime);
         output.flush();
     }
 
     public void waitForStart() throws Exception {
-        checkConnection();
+        Log.d(LOG_TAG, "waiting for start");
         input.readBoolean();
     }
 
     public List<Map.Entry<String, LocalTime>> getResults() throws Exception {
-        checkConnection();
         return (List<Map.Entry<String, LocalTime>>) input.readObject();
     }
 
     public Set<Map.Entry<String, LocalTime>> requestLeaderboard() throws Exception {
-        checkConnection();
-        Log.d(LOG_TAG, "got past connection check in requestleaderboard");
-        output.writeByte(1);
-        output.flush();
-        return (Set<Map.Entry<String, LocalTime>>) input.readObject();
-    }
-
-    private void cleanup() {
+        Log.d(LOG_TAG, "requesting leaderboard");
         try {
-            if (input != null) input.close();
-            if (output != null) output.close();
-            if (isConnected()) socket.close();
+            output.writeByte(1);
+            output.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            connect();
+            requestLeaderboard();
         }
-    }
-
-    private boolean isConnected() {
-        return socket != null && !socket.isClosed();
+        return (Set<Map.Entry<String, LocalTime>>) input.readObject();
     }
 }
 

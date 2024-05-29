@@ -19,6 +19,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.security.spec.ECField;
+import java.time.LocalTime;
+import java.util.AbstractMap;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,6 +53,7 @@ public class LoadingActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 ServerHandler.instance.waitForStart();
+                ServerHandler.instance.sendLap(new AbstractMap.SimpleEntry<>("cool", LocalTime.now()));
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);
@@ -59,6 +62,7 @@ public class LoadingActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.d(LOG_TAG, Objects.requireNonNull(e.getMessage()));
                 handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+                finish();
             }
         });
         spinner.startAnimation(rotate);
