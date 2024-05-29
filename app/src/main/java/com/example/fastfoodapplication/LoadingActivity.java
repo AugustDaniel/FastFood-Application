@@ -62,6 +62,4 @@ public class LoadingActivity extends AppCompatActivity {
         });
         spinner.startAnimation(rotate);
     }
-
-
 }

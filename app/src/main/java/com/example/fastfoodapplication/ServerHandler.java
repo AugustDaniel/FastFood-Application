@@ -29,7 +29,6 @@ public class ServerHandler {
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private final ExecutorService threadPool = Executors.newSingleThreadExecutor();
-    public static final ExecutorService networkThread = Executors.newSingleThreadExecutor();
     private Future<?> thread;
     private boolean racing = false;
 
