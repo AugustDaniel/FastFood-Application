@@ -19,6 +19,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.security.spec.ECField;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.AbstractMap;
 import java.util.Objects;
@@ -53,6 +54,7 @@ public class LoadingActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 ServerHandler.instance.waitForStart();
+                ServerHandler.instance.sendLap(new Lap("test", LocalTime.now(), LocalDate.now()));
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);

@@ -43,9 +43,9 @@ public class ServerHandler {
         }
     }
 
-    public void sendLap(Map.Entry<String, LocalTime> lapTime) throws Exception {
+    public void sendLap(Lap lap) throws Exception {
         Log.d(LOG_TAG, "sending lap");
-        output.writeObject(lapTime);
+        output.writeObject(lap);
         output.flush();
     }
 
