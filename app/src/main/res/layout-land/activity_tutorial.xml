@@ -27,13 +27,15 @@
         android:id="@+id/activity_tutorial_image_view_tutorial"
         android:layout_width="537dp"
         android:layout_height="206dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_button_continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_logo"
         app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/tutorial_l"
+        tools:srcCompat="@drawable/tutorial_l" />
 
     <Button
         android:id="@+id/activity_tutorial_button_continue"

@@ -35,7 +35,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.909"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/tutorial_s"
+        tools:srcCompat="@drawable/tutorial_s" />
 
     <Button
         android:id="@+id/activity_tutorial_button_continue"
