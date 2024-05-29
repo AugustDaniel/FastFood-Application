@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.concurrent.ExecutorService;
@@ -22,7 +23,7 @@ import java.util.concurrent.Executors;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button continueButton;
-    private TextInputLayout textfield;
+    private TextInputEditText textfield;
     private static final String LOGTAG = ControllerActivity.class.getName();
 
     @SuppressLint("MissingInflatedId")
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         continueButton = findViewById(R.id.activity_register_button_continue);
         textfield = findViewById(R.id.activity_register_text_input_name);
 

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,7 +12,6 @@
         layout="@layout/activity_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/activity_register_upper_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
@@ -27,19 +27,23 @@
         android:id="@+id/activity_tutorial_image_view_tutorial"
         android:layout_width="537dp"
         android:layout_height="206dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_button_continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_logo"
         app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/tutorial_l"
+        tools:srcCompat="@drawable/tutorial_l" />
 
     <Button
         android:id="@+id/activity_tutorial_button_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/super_brigade"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
