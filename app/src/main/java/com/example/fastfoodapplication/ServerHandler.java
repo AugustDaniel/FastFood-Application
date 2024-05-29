@@ -17,14 +17,13 @@ import java.util.concurrent.Executors;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "192.168.1.96";
+    private static final String IP_ADDRESS = "192.168.1.103";
     private static final int PORT = 8000;
     public static ServerHandler instance = new ServerHandler();
     private final static String LOG_TAG = "SERVER_HANDLER_INSTANCE";
     private Socket socket;
     private ObjectInputStream input;
     private ObjectOutputStream output;
-    private boolean racing = false;
 
     private ServerHandler() {
     }
@@ -39,7 +38,7 @@ public class ServerHandler {
 
     public void connect() throws Exception {
         Log.d(LOG_TAG, "Socket trying to connect...");
-        Socket socket = new Socket();
+        socket = new Socket();
         socket.connect(new InetSocketAddress(IP_ADDRESS, PORT), 1000); // TODO: Change IP_ADDRESS if needed
         output = new ObjectOutputStream(socket.getOutputStream());
         input = new ObjectInputStream(socket.getInputStream());
@@ -50,15 +49,12 @@ public class ServerHandler {
         checkConnection();
         output.writeByte(0);
         output.flush();
-        output.reset();
-        racing = true;
     }
 
     public void sendLap(Map.Entry<String, LocalTime> lapTime) throws Exception {
         checkConnection();
         output.writeObject(lapTime);
         output.flush();
-        output.reset();
     }
 
     public void waitForStart() throws Exception {
@@ -76,7 +72,6 @@ public class ServerHandler {
         Log.d(LOG_TAG, "got past connection check in requestleaderboard");
         output.writeByte(1);
         output.flush();
-        output.reset();
         return (Set<Map.Entry<String, LocalTime>>) input.readObject();
     }
 
@@ -90,17 +85,8 @@ public class ServerHandler {
         }
     }
 
-    public void resetConnection() {
-        cleanup();
-        racing = false;
-    }
-
     private boolean isConnected() {
         return socket != null && !socket.isClosed();
-    }
-
-    public boolean isRacing() {
-        return racing;
     }
 }
 
