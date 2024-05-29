@@ -57,7 +57,7 @@ public class LoadingActivity extends AppCompatActivity {
                     finish();
                 });
             } catch (Exception e) {
-                Log.v(LOG_TAG, Objects.requireNonNull(e.getMessage()));
+                Log.d(LOG_TAG, Objects.requireNonNull(e.getMessage()));
                 handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
             }
         });

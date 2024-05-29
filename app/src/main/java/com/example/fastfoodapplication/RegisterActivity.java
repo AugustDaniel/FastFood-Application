@@ -51,16 +51,16 @@ public class RegisterActivity extends AppCompatActivity {
 
             executor.execute(() -> {
                 try {
-                    Log.v(LOGTAG, "Going to join race");
+                    Log.d(LOGTAG, "Going to join race");
                     ServerHandler.instance.startRace();
                     handler.post(() -> {
-                        Log.v(LOGTAG, "Going to start race");
+                        Log.d(LOGTAG, "Going to start race");
                         Intent intent = new Intent(RegisterActivity.this, ControllerActivity.class);
                         startActivity(intent);
                         finish();
                     });
                 } catch (Exception e) {
-                    Log.v(LOGTAG, Objects.requireNonNull(e.getMessage()));
+                    Log.d(LOGTAG, Objects.requireNonNull(e.getMessage()));
                     handler.post(() -> Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_LONG).show());
                 }
             });
