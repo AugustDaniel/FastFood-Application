@@ -97,7 +97,7 @@ public class ServerHandler {
     public Set<Map.Entry<String, LocalTime>> requestLeaderboard() {
         if (!isConnected() || racing) return null;
 
-        Log.d(LOG_TAG, "got past connction check in requestleaderboard");
+        Log.d(LOG_TAG, "got past connection check in requestleaderboard");
 
         Set<Map.Entry<String, LocalTime>> leaderboard = new LinkedHashSet<>();
         try {
