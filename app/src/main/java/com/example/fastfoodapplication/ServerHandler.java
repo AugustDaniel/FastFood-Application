@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
@@ -84,6 +85,16 @@ public class ServerHandler {
         }
     }
 
+    public void sendLap(Map.Entry<String, LocalTime>lapTime) {
+        if (isConnected()) {
+            try {
+                output.writeObject(lapTime);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public void waitForStart() {
         if (isConnected()) {
             try {
@@ -92,6 +103,20 @@ public class ServerHandler {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Map.Entry<String, LocalTime>> getResults() {
+        List<Map.Entry<String, LocalTime>> results = null;
+
+        if (isConnected()) {
+            try {
+                results = (List<Map.Entry<String, LocalTime>>) input.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return results;
     }
 
     public Set<Map.Entry<String, LocalTime>> requestLeaderboard() {
