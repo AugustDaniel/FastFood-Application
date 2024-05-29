@@ -37,6 +37,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         }
 
         leaderboard = ServerHandler.instance.requestLeaderboard();
+        //TODO set data in recyclerview
         System.out.println(leaderboard);
     }
 }
