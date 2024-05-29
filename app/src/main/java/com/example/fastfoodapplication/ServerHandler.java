@@ -78,7 +78,9 @@ public class ServerHandler {
     public void startRace() {
         if (isConnected()) {
             try {
-                output.writeByte(1);
+                output.writeByte(0);
+                output.flush();
+                output.reset();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -126,7 +128,7 @@ public class ServerHandler {
 
         Set<Map.Entry<String, LocalTime>> leaderboard = new LinkedHashSet<>();
         try {
-            output.writeByte(0);
+            output.writeByte(1);
             output.flush();
             output.reset();
             leaderboard = (Set<Map.Entry<String, LocalTime>>) input.readObject();

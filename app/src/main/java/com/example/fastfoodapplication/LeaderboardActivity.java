@@ -34,7 +34,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
-        }
+        } //TODO make this global
 
         leaderboard = ServerHandler.instance.requestLeaderboard();
         //TODO set data in recyclerview

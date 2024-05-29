@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,16 +34,25 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
         continueButton = findViewById(R.id.activity_register_button_continue);
-        textfield=findViewById(R.id.activity_register_text_input_name);
+        textfield = findViewById(R.id.activity_register_text_input_name);
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,continueButton.getId() + " clicked");
-                Intent intent = new Intent(RegisterActivity.this, ControllerActivity.class);
+                Log.v(LOGTAG, continueButton.getId() + " clicked");
+//                if (textfield.getEditText() != null) {
+                ServerHandler.instance.startRace();
+                Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);
                 startActivity(intent);
+//                } else {
+//                    displayToastError();
+//                }
             }
         });
+    }
+
+    private void displayToastError() {
+        Toast.makeText(this, "Fill in name", Toast.LENGTH_LONG).show();
     }
 
 }
