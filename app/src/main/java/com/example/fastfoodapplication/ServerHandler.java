@@ -21,8 +21,8 @@ import java.util.concurrent.Future;
 
 public class ServerHandler {
 
-    private static String IP_ADDRESS = "145.49.14.188";
-    private static int PORT = 55000;
+    private static final String IP_ADDRESS = "145.49.14.188";
+    private static final int PORT = 55000;
     public static ServerHandler instance = new ServerHandler();
     private final static String LOG_TAG = "SERVER_HANDLER_INSTANCE";
     private Socket socket;
