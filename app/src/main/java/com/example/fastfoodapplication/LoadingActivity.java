@@ -53,7 +53,6 @@ public class LoadingActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 ServerHandler.instance.waitForStart();
-                ServerHandler.instance.sendLap(new AbstractMap.SimpleEntry<>("cool", LocalTime.now()));
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);
