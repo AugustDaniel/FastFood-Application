@@ -12,12 +12,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.time.LocalTime;
+import java.util.Map;
+import java.util.Set;
+
 public class StartActivity extends AppCompatActivity {
 
     private static final String LOGTAG = ControllerActivity.class.getName();
-    private Button tutorial;
-    private Button play;
-    private Button leaderboard;
+    private Button tutorialButton;
+    private Button playButton;
+    private Button leaderboardButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,36 +33,37 @@ public class StartActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        tutorial=findViewById(R.id.activity_start_tutorial_button);
-        play=findViewById(R.id.activity_start_play_button);
-        leaderboard=findViewById(R.id.activity_start_leaderboard_button);
+        tutorialButton =findViewById(R.id.activity_start_tutorial_button);
+        playButton =findViewById(R.id.activity_start_play_button);
+        leaderboardButton =findViewById(R.id.activity_start_leaderboard_button);
 
-        tutorial.setOnClickListener(new View.OnClickListener() {
+        tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,tutorial.getId() + " clicked");
+                Log.v(LOGTAG, tutorialButton.getId() + " clicked");
                 Intent intent = new Intent(StartActivity.this, TutorialActivity.class);
                 startActivity(intent);
             }
         });
 
-        play.setOnClickListener(new View.OnClickListener() {
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,play.getId() + " clicked");
+                Log.v(LOGTAG, playButton.getId() + " clicked");
                 Intent intent = new Intent(StartActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
-        leaderboard.setOnClickListener(new View.OnClickListener() {
+        leaderboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,leaderboard.getId() + " clicked");
+                Log.v(LOGTAG,leaderboardButton.getId() + " clicked");
                 Intent intent = new Intent(StartActivity.this, LeaderboardActivity.class);
                 startActivity(intent);
             }
         });
 
+        ServerHandler.instance.startConnectService(this); //TODO might have to do this everywhere but have to test first
     }
 }

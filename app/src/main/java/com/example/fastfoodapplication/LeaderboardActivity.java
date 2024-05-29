@@ -8,7 +8,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.time.LocalTime;
+import java.util.Map;
+import java.util.Set;
+
 public class LeaderboardActivity extends AppCompatActivity {
+
+    public static String EXTRA_TAG = "LEADERBOARD_EXTRA";
+    private Set<Map.Entry<String, LocalTime>> leaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +27,8 @@ public class LeaderboardActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        leaderboard = ServerHandler.instance.requestLeaderboard();
+        System.out.println(leaderboard);
     }
 }
