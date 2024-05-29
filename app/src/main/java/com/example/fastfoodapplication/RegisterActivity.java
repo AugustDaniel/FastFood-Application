@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
         continueButton = findViewById(R.id.activity_register_button_continue);
-        textfield=findViewById(R.id.activity_register_text_input_name);
+        textfield=findViewById(R.id.activity_register_text_input_nam);
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
