@@ -48,15 +48,14 @@ public class LoadingActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 ServerHandler.instance.waitForStart();
+                handler.post(() -> {
+                    Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
             } catch (Exception e) {
                 handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
             }
-
-            handler.post(() -> {
-                Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
-                startActivity(intent);
-                finish();
-            });
         });
         spinner.startAnimation(rotate);
 
