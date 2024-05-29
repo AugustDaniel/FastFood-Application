@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_register_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <include
         android:id="@+id/activity_register_logo"
@@ -22,6 +23,8 @@
         android:layout_width="251dp"
         android:layout_height="70dp"
         android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/super_brigade"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
         app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline" />
@@ -32,7 +35,9 @@
         android:layout_height="87dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="128dp"
+        android:fontFamily="@font/super_brigade"
         android:text="@string/explanation"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
         app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline" />
 
@@ -46,10 +51,13 @@
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/activity_register_text_input_name"
+            android:id="@+id/activity_register_text_input_nam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="naam"
+            android:background="@color/yellow"
+            android:backgroundTint="@color/yellow"
+            android:fontFamily="@font/super_brigade"
+            android:hint="@string/naam"
             app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"
             app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -79,6 +87,8 @@
         android:id="@+id/activity_register_lower_guidline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        android:fontFamily="@font/super_brigade"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".8" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,5 +6,7 @@
     <string name="uitleg">Uitleg</string>
     <string name="scorebord">Scorebord</string>
     <string name="leaderboard_title">Leaderboard</string>
+    <string name="naam">naam</string>
+    <string name="tutorial">Tutorial</string>
     <string name="loading_text">Even geduld. De race begint binnekort.</string>
 </resources>
