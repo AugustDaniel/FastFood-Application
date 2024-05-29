@@ -17,6 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class RegisterActivity extends AppCompatActivity {
     private Button continueButton;
     private TextInputLayout textfield;
@@ -36,12 +39,13 @@ public class RegisterActivity extends AppCompatActivity {
         continueButton = findViewById(R.id.activity_register_button_continue);
         textfield = findViewById(R.id.activity_register_text_input_name);
 
+        ExecutorService executor = Executors.newSingleThreadExecutor();
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.v(LOGTAG, continueButton.getId() + " clicked");
 //                if (textfield.getEditText() != null) {
-                ServerHandler.instance.startRace();
+                executor.execute(() -> ServerHandler.instance.startRace());
                 Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);
                 startActivity(intent);
 //                } else {

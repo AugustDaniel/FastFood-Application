@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -19,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import kotlinx.coroutines.scheduling.Task;
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -43,15 +46,20 @@ public class LoadingActivity extends AppCompatActivity {
         rotate.setDuration(360*999*10);
         rotate.setInterpolator(new LinearInterpolator());
 
-        new Thread(() ->  {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            //Background work here
             ServerHandler.instance.waitForStart();
 
-            mainHandler.post(() -> {
+            handler.post(() -> {
+                //UI Thread work here
                 Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                 startActivity(intent);
                 finish();
             });
-        }).start();
+        });
         spinner.startAnimation(rotate);
     }
 

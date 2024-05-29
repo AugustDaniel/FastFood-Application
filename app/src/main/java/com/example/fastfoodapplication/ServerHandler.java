@@ -28,7 +28,8 @@ public class ServerHandler {
     private Socket socket;
     private ObjectInputStream input;
     private ObjectOutputStream output;
-    private final ExecutorService threadPool = Executors.newFixedThreadPool(1);
+    private final ExecutorService threadPool = Executors.newSingleThreadExecutor();
+    public static final ExecutorService networkThread = Executors.newSingleThreadExecutor();
     private Future<?> thread;
     private boolean racing = false;
 
@@ -81,6 +82,7 @@ public class ServerHandler {
                 output.writeByte(0);
                 output.flush();
                 output.reset();
+                racing = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -159,4 +161,9 @@ public class ServerHandler {
     private boolean isConnected() {
         return socket != null && !socket.isClosed();
     }
+
+    public boolean isRacing() {
+        return racing;
+    }
 }
+
