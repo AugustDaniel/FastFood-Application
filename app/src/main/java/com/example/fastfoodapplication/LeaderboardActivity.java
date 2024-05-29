@@ -1,7 +1,10 @@
 package com.example.fastfoodapplication;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 import java.time.LocalTime;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LeaderboardActivity extends AppCompatActivity {
-
-    public static String EXTRA_TAG = "LEADERBOARD_EXTRA";
     private Set<Map.Entry<String, LocalTime>> leaderboard;
 
     @Override
@@ -36,7 +39,19 @@ public class LeaderboardActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        leaderboard = ServerHandler.instance.requestLeaderboard();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                leaderboard = ServerHandler.instance.requestLeaderboard();
+                System.out.println(leaderboard);
+                // adapter data change call
+            } catch (Exception e) {
+                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+            }
+        });
+
         //TODO set data in recyclerview
         System.out.println(leaderboard);
     }
