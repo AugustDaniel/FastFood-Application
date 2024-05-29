@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -59,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                         finish();
                     });
                 } catch (Exception e) {
+                    Log.v(LOGTAG, Objects.requireNonNull(e.getMessage()));
                     handler.post(() -> Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_LONG).show());
                 }
             });

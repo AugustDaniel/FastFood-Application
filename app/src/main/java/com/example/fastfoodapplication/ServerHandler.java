@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.util.LinkedHashSet;
@@ -16,8 +17,8 @@ import java.util.concurrent.Executors;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "127.0.0.1";
-    private static final int PORT = 55000;
+    private static final String IP_ADDRESS = "192.168.1.96";
+    private static final int PORT = 8000;
     public static ServerHandler instance = new ServerHandler();
     private final static String LOG_TAG = "SERVER_HANDLER_INSTANCE";
     private Socket socket;
@@ -28,7 +29,7 @@ public class ServerHandler {
     private ServerHandler() {
     }
 
-    private void checkConnection() throws IOException {
+    private void checkConnection() throws Exception {
 //        if (isConnected()) {
 //            return;
 //        }
@@ -36,9 +37,10 @@ public class ServerHandler {
         connect();
     }
 
-    public void connect() throws IOException {
+    public void connect() throws Exception {
         Log.d(LOG_TAG, "Socket trying to connect...");
-        socket = new Socket(IP_ADDRESS, PORT); // TODO: Change IP_ADDRESS if needed
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress(IP_ADDRESS, PORT), 1000); // TODO: Change IP_ADDRESS if needed
         output = new ObjectOutputStream(socket.getOutputStream());
         input = new ObjectInputStream(socket.getInputStream());
         Log.d(LOG_TAG, "Socket connected");
@@ -69,7 +71,7 @@ public class ServerHandler {
         return (List<Map.Entry<String, LocalTime>>) input.readObject();
     }
 
-    public Set<Map.Entry<String, LocalTime>> requestLeaderboard() throws IOException, ClassNotFoundException {
+    public Set<Map.Entry<String, LocalTime>> requestLeaderboard() throws Exception {
         checkConnection();
         Log.d(LOG_TAG, "got past connection check in requestleaderboard");
         output.writeByte(1);

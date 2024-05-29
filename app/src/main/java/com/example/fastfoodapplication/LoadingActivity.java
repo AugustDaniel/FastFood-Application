@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -18,11 +19,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.security.spec.ECField;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoadingActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "LOADING_ACTIVITY";
     private ImageView spinner;
 
     @Override
@@ -54,6 +57,7 @@ public class LoadingActivity extends AppCompatActivity {
                     finish();
                 });
             } catch (Exception e) {
+                Log.v(LOG_TAG, Objects.requireNonNull(e.getMessage()));
                 handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
             }
         });
