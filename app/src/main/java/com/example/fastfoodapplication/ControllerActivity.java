@@ -40,7 +40,7 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
         controllerRight = findViewById(R.id.activity_controller_button_right);
         controllerGasPedal = findViewById(R.id.activity_controller_button_gas_pedal);
         controllerBreakPedal = findViewById(R.id.activity_controller_button_break_pedal);
-
+        BrokerHandler.instance.createConnection(getApplicationContext());
         controllerLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,9 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
             @Override
             public void onClick(View view) {
                 Log.v(LOGTAG,controllerBreakPedal.getId() + " clicked");
-                sendMessage(BrokerHandler.topicType.BREAK,"Q");
+//                sendMessage(BrokerHandler.topicType.BREAK,"Q");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"Q");
+
             }
         });
     }

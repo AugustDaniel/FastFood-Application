@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RegisterActivity extends AppCompatActivity implements BrokerObserver {
+public class RegisterActivity extends AppCompatActivity/* implements BrokerObserver*/ {
     private Button continueButton;
     private TextInputEditText textfield;
     private static final String LOGTAG = ControllerActivity.class.getName();
@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements BrokerObserve
         });
     }
 
-    @Override
+   /* @Override
     public void update(MqttMessage data) {
 
     }
@@ -77,5 +77,5 @@ public class RegisterActivity extends AppCompatActivity implements BrokerObserve
     @Override
     public void sendMessage(BrokerHandler.topicType topicType, String message) {
         BrokerObserver.super.sendMessage(topicType, message);
-    }
+    }*/
 }
