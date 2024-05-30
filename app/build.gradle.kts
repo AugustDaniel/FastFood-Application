@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.library)
-    implementation(files("../app/src/main/java/com/example/fastfoodlib/FastFoodLib.jar"))
+    implementation(files("lib\\FastFoodLib.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
