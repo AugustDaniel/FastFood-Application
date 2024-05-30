@@ -69,6 +69,7 @@
             android:fontFamily="@font/super_brigade"
             android:hint="@string/naam"
             android:inputType="text"
+            android:maxLength="10"
             android:textColor="@color/black"
             android:textColorLink="@color/red" />
     </com.google.android.material.textfield.TextInputLayout>
