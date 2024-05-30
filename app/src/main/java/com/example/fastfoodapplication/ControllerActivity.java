@@ -13,7 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class ControllerActivity extends AppCompatActivity {
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+public class ControllerActivity extends AppCompatActivity implements BrokerObserver {
 
     private static final String LOGTAG = ControllerActivity.class.getName();
     private ImageButton controllerLeft;
@@ -65,9 +67,15 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.v(LOGTAG,controllerBreakPedal.getId() + " clicked");
+                sendMessage(BrokerHandler.topicType.BREAK,"Q");
             }
         });
     }
 
+
+    @Override
+    public void update(MqttMessage data) {
+
+    }
 
 }

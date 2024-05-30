@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.library)
+    implementation(libs.org.eclipse.paho.android.service)
+    implementation(libs.org.eclipse.paho.client.mqttv3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
