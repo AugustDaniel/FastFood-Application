@@ -14,7 +14,7 @@ import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "192.168.1.103";
+    private static final String IP_ADDRESS = "145.49.11.211";
     private static final int PORT = 8000;
     public static ServerHandler instance = new ServerHandler();
     private final static String LOG_TAG = "SERVER_HANDLER_INSTANCE";
