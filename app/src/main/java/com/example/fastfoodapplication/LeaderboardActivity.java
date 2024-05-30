@@ -21,6 +21,7 @@ import com.fastfoodlib.util.Lap;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -46,26 +47,25 @@ public class LeaderboardActivity extends AppCompatActivity {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
+        lapRecyclerView = findViewById(R.id.activity_leaderboard_recycler_view_laps);
+
+        lapRecyclerViewAdapter = new LapAdapter(this, new ArrayList<>(leaderboard));
+        lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
+        lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         executor.execute(() -> {
             try {
                 leaderboard = ServerHandler.instance.requestLeaderboard();
-                System.out.println(leaderboard);
+                if(leaderboard!=null){
+                lapRecyclerViewAdapter.setLaps(new ArrayList<>(leaderboard));}
                 // adapter data change call
             } catch (Exception e) {
                 handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
             }
         });
-        ArrayList<Lap> laps =new ArrayList<Lap>();
-        laps.add(new Lap("Circuitttt", LocalTime.of(3, 32, 45), LocalDate.of(2023, 5, 30)));
-        laps.add(new Lap("Circuit", LocalTime.of(2, 32, 45), LocalDate.of(2023, 5, 30)));
 
-        //TODO set server data in recyclerview
 
-        lapRecyclerView = findViewById(R.id.activity_leaderboard_recycler_view_laps);
 
-        lapRecyclerViewAdapter = new LapAdapter(this, laps);
-        lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
-        lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         System.out.println(leaderboard);
     }

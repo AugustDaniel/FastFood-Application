@@ -14,7 +14,7 @@ import com.fastfoodlib.util.Lap;
 import java.util.Collections;
 import java.util.List;
 
-public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder>{
+public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
     private List<Lap> laps;
     private OnItemClickListener clickListener;
 
@@ -26,6 +26,7 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder>{
         this.laps = laps;
         this.clickListener = listener;
     }
+
     public LapAdapter(Context context, List<Lap> laps) {
         this.laps = laps;
     }
@@ -68,15 +69,21 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(LapAdapter.ViewHolder holder, int position) {
         Lap lap = laps.get(position);
-        String place = String.valueOf(laps.indexOf(lap)+1);
-        if(place==null){
-            place="0";
+        String place = String.valueOf(laps.indexOf(lap) + 1);
+        if (place == null) {
+            place = "0";
         }
 
         holder.textViewPlacement.setText(place);
         holder.textViewName.setText(lap.getName());
         holder.textViewscore.setText(lap.getLapTime().toString());
     }
+
+    public void setLaps(List<Lap> laps) {
+        this.laps = laps;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return laps.size();
