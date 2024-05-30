@@ -7,10 +7,9 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.security.cert.PKIXRevocationChecker;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
 import com.fastfoodlib.util.*;
 
 public class ServerHandler {
@@ -35,49 +34,38 @@ public class ServerHandler {
         Log.d(LOG_TAG, "Socket connected");
     }
 
-    public void startRace() throws Exception {
+    public void joinRace() throws Exception {
         try {
-            output.writeObject(Options.START_RACE);
+            output.writeObject(Options.JOIN_RACE);
             output.flush();
         } catch (Exception e) {
             connect();
-            startRace();
+            joinRace();
         }
     }
 
     public void sendLap(Lap lap) throws Exception {
         Log.d(LOG_TAG, "sending lap");
-        output.writeObject(Options.SEND_LAPS);
-        output.flush();
-
-        if (input.readBoolean()) {
-            output.writeObject(lap);
-        }
-
-        throw new NotOnRightStepException(Options.SEND_LAPS);
+        output.writeObject(lap);
     }
 
     public void waitForStart() throws Exception {
         Log.d(LOG_TAG, "waiting for start");
+        while (true) {
+            input.readObject();
+            output.writeObject(Options.START_RACE);
+            output.flush();
 
-        if (input.readBoolean()) {
-            input.readBoolean();
+            boolean start = input.readBoolean();
+
+            if (start) {
+                break;
+            }
         }
-
-        output.writeObject(Options.JOIN_RACE);
-        output.flush();
-        throw new NotOnRightStepException(Options.JOIN_RACE);
     }
 
     public List<Lap> getResults() throws Exception {
-        output.writeObject(Options.FINISH_RACE);
-        output.flush();
-
-        if (input.readBoolean()) {
-            return (List<Lap>) input.readObject();
-        }
-
-        throw new NotOnRightStepException(Options.FINISH_RACE);
+        return (List<Lap>) input.readObject();
     }
 
     public Set<Lap> requestLeaderboard() throws Exception {
@@ -92,11 +80,5 @@ public class ServerHandler {
 
         return (Set<Lap>) input.readObject();
     }
-
-    public static class NotOnRightStepException extends Exception {
-        NotOnRightStepException(Options step) {
-            super("Not on " + step.name());
-        }
-    }
- }
+}
 

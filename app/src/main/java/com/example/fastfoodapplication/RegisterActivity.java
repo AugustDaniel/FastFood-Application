@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -52,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             executor.execute(() -> {
                 try {
                     Log.d(LOGTAG, "Going to join race");
-                    ServerHandler.instance.startRace();
+                    ServerHandler.instance.joinRace();
                     handler.post(() -> {
                         Log.d(LOGTAG, "Going to start race");
                         Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);
