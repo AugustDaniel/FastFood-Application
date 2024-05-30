@@ -6,9 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import com.fastfoodlib.util.*;
 
@@ -55,11 +53,11 @@ public class ServerHandler {
         input.readBoolean();
     }
 
-    public List<Map.Entry<String, LocalTime>> getResults() throws Exception {
-        return (List<Map.Entry<String, LocalTime>>) input.readObject();
+    public List<Lap> getResults() throws Exception {
+        return (List<Lap>) input.readObject();
     }
 
-    public Set<Map.Entry<String, LocalTime>> requestLeaderboard() throws Exception {
+    public Set<Lap> requestLeaderboard() throws Exception {
         Log.d(LOG_TAG, "requesting leaderboard");
         try {
             output.writeByte(1);
@@ -68,7 +66,7 @@ public class ServerHandler {
             connect();
             requestLeaderboard();
         }
-        return (Set<Map.Entry<String, LocalTime>>) input.readObject();
+        return (Set<Lap>) input.readObject();
     }
 }
 
