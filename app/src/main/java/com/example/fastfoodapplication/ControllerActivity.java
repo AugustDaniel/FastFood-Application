@@ -1,9 +1,11 @@
 package com.example.fastfoodapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +16,13 @@ import androidx.core.view.WindowInsetsCompat;
 public class ControllerActivity extends AppCompatActivity {
 
     private static final String LOGTAG = ControllerActivity.class.getName();
-    public Button controllerLeft;
-    public Button controllerRight;
-    public Button controllerGasPedal;
-    public Button controllerBreakPedal;
+    private ImageButton controllerLeft;
+    private ImageButton controllerRight;
+    private ImageButton controllerGasPedal;
+    private ImageButton controllerBreakPedal;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class ControllerActivity extends AppCompatActivity {
                 Log.v(LOGTAG,controllerLeft.getId() + " clicked");
             }
         });
+
 
         controllerRight.setOnClickListener(new View.OnClickListener() {
             @Override

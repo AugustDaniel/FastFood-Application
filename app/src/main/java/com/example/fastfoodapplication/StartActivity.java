@@ -12,10 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.time.LocalTime;
-import java.util.Map;
-import java.util.Set;
-
 public class StartActivity extends AppCompatActivity {
 
     private static final String LOGTAG = ControllerActivity.class.getName();
@@ -63,7 +59,5 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        ServerHandler.instance.startConnectService(this); //TODO might have to do this everywhere but have to test first
     }
 }

@@ -1,7 +1,10 @@
 package com.example.fastfoodapplication;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 import java.time.LocalTime;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LeaderboardActivity extends AppCompatActivity {
-
-    public static String EXTRA_TAG = "LEADERBOARD_EXTRA";
     private Set<Map.Entry<String, LocalTime>> leaderboard;
 
     @Override
@@ -29,14 +32,19 @@ public class LeaderboardActivity extends AppCompatActivity {
             return insets;
         });
 
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
-        leaderboard = ServerHandler.instance.requestLeaderboard();
+        executor.execute(() -> {
+            try {
+                leaderboard = ServerHandler.instance.requestLeaderboard();
+                System.out.println(leaderboard);
+                // adapter data change call
+            } catch (Exception e) {
+                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+            }
+        });
+
         //TODO set data in recyclerview
         System.out.println(leaderboard);
     }
