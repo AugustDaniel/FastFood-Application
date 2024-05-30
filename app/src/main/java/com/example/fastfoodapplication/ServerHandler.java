@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.security.cert.PKIXRevocationChecker;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import com.fastfoodlib.util.*;
@@ -57,13 +59,13 @@ public class ServerHandler {
 
     public void waitForStart() throws Exception {
         Log.d(LOG_TAG, "waiting for start");
-        output.writeObject(Options.JOIN_RACE);
-        output.flush();
 
         if (input.readBoolean()) {
             input.readBoolean();
         }
 
+        output.writeObject(Options.JOIN_RACE);
+        output.flush();
         throw new NotOnRightStepException(Options.JOIN_RACE);
     }
 
@@ -87,6 +89,7 @@ public class ServerHandler {
             connect();
             requestLeaderboard();
         }
+
         return (Set<Lap>) input.readObject();
     }
 
