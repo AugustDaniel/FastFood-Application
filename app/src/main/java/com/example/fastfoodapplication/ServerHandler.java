@@ -2,11 +2,11 @@ package com.example.fastfoodapplication;
 
 import android.util.Log;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.security.cert.PKIXRevocationChecker;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +36,7 @@ public class ServerHandler {
 
     public void joinRace() throws Exception {
         try {
+            checkConnection();
             output.writeObject(Options.JOIN_RACE);
             output.flush();
         } catch (Exception e) {
@@ -68,17 +69,26 @@ public class ServerHandler {
         return (List<Lap>) input.readObject();
     }
 
-    public Set<Lap> requestLeaderboard() throws Exception {
+    public List<Lap> requestLeaderboard() throws Exception {
         Log.d(LOG_TAG, "requesting leaderboard");
         try {
+            checkConnection();
             output.writeObject(Options.REQUEST_LEADERBOARD);
             output.flush();
         } catch (Exception e) {
             connect();
             requestLeaderboard();
+            e.printStackTrace();
         }
 
-        return (Set<Lap>) input.readObject();
+        List<Lap> laps = (List<Lap>) input.readObject();
+
+        Log.d(LOG_TAG, laps.toString());
+        return laps;
+    }
+
+    public void checkConnection() throws Exception{
+        if (socket == null || input == null || output == null) connect();
     }
 }
 
