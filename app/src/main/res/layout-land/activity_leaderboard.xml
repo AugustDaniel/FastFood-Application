@@ -61,6 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_logo" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_leaderboard_recycler_view_laps"
         android:layout_width="446dp"
         android:layout_height="477dp"
         android:layout_marginTop="16dp"
