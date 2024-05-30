@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -21,13 +22,15 @@ import com.fastfoodlib.util.Lap;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LeaderboardActivity extends AppCompatActivity {
-    private Set<Lap> leaderboard;
+    private List<Lap> leaderboard = new ArrayList<>();
 
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
@@ -56,17 +59,14 @@ public class LeaderboardActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 leaderboard = ServerHandler.instance.requestLeaderboard();
-                if(leaderboard!=null){
-                lapRecyclerViewAdapter.setLaps(new ArrayList<>(leaderboard));}
-                // adapter data change call
+                leaderboard.forEach(System.out::println);
+                if (leaderboard != null) {
+                    lapRecyclerViewAdapter.setLaps(leaderboard);
+                }
             } catch (Exception e) {
+                e.printStackTrace();
                 handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
             }
         });
-
-
-
-
-        System.out.println(leaderboard);
     }
 }
