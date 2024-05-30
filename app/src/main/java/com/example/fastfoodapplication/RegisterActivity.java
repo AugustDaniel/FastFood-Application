@@ -1,7 +1,9 @@
 package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,12 +43,24 @@ public class RegisterActivity extends AppCompatActivity {
         continueButton = findViewById(R.id.activity_register_button_continue);
         textfield = findViewById(R.id.activity_register_text_input_name);
 
+
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
 
         continueButton.setOnClickListener(view -> {
             Log.v(LOGTAG, continueButton.getId() + " clicked");
+
+            if (textfield.getText() == null || textfield.getText().toString().isEmpty()) {
+                Toast.makeText(RegisterActivity.this, "Fill in name", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("my_prefs", textfield.getText().toString());
+            editor.apply();
 
             executor.execute(() -> {
                 try {
