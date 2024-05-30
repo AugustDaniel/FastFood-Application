@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
-    android:id="@+id/main"
+    android:id="@+id/activity_register_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".LeaderboardActivity">
 
     <include
@@ -48,8 +48,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="255dp"
-        android:layout_height="53dp"
+        android:layout_width="276dp"
+        android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/leaderboard_title"
@@ -62,10 +62,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_leaderboard_recycler_view_laps"
-        android:layout_width="446dp"
-        android:layout_height="477dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="445dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

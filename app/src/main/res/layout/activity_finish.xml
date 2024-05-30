@@ -88,11 +88,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_finish_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/activity_finish_left_vertical_guideline"
-        app:layout_constraintEnd_toEndOf="@id/activity_finish_right_vertical_guideline"
+        android:layout_width="345dp"
+        android:layout_height="325dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/activity_finish_right_vertical_guideline"
+        app:layout_constraintStart_toStartOf="@id/activity_finish_left_vertical_guideline"
         app:layout_constraintTop_toTopOf="@id/activity_finish_lower_horizontal_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

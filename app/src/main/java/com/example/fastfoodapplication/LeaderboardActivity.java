@@ -57,7 +57,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         });
         ArrayList<Lap> laps =new ArrayList<Lap>();
-        laps.add(new Lap("Circuit", LocalTime.of(3, 32, 45), LocalDate.of(2023, 5, 30)));
+        laps.add(new Lap("Circuitttt", LocalTime.of(3, 32, 45), LocalDate.of(2023, 5, 30)));
         laps.add(new Lap("Circuit", LocalTime.of(2, 32, 45), LocalDate.of(2023, 5, 30)));
 
         //TODO set server data in recyclerview
