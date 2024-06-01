@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             executor.execute(() -> {
                 try {
                     Log.d(LOGTAG, "Going to join race");
-                    ServerHandler.instance.joinRace();
+                    ServerHandler.joinRace();
                     handler.post(() -> {
                         Log.d(LOGTAG, "Going to start race");
                         Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);

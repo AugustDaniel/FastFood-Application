@@ -58,10 +58,11 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         executor.execute(() -> {
             try {
-                leaderboard = ServerHandler.instance.requestLeaderboard();
-                leaderboard.forEach(System.out::println);
+                leaderboard = ServerHandler.requestLeaderboard();
+
                 if (leaderboard != null) {
                     lapRecyclerViewAdapter.setLaps(leaderboard);
+                    lapRecyclerViewAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

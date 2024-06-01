@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.security.cert.PKIXRevocationChecker;
 import java.util.List;
 import java.util.Set;
 
@@ -14,18 +15,17 @@ import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "145.49.11.211";
+    private static final String IP_ADDRESS = "192.168.1.103";
     private static final int PORT = 8000;
-    public static ServerHandler instance = new ServerHandler();
-    private final static String LOG_TAG = "SERVER_HANDLER_INSTANCE";
-    private Socket socket;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private final static String LOG_TAG = "SERVER_HANDLER";
+    private static Socket socket;
+    private static ObjectInputStream input;
+    private static ObjectOutputStream output;
 
     private ServerHandler() {
     }
 
-    public void connect() throws Exception {
+    public static void connect() throws IOException {
         Log.d(LOG_TAG, "Socket trying to connect...");
         socket = new Socket();
         socket.connect(new InetSocketAddress(IP_ADDRESS, PORT), 1000); // TODO: Change IP_ADDRESS if needed
@@ -34,28 +34,48 @@ public class ServerHandler {
         Log.d(LOG_TAG, "Socket connected");
     }
 
-    public void joinRace() throws Exception {
+    private static void checkNullPointers() throws IOException {
+        if (socket == null || input == null || output == null) connect();
+    }
+
+    private static void writeObject(Object o) throws IOException {
+        checkNullPointers();
+
         try {
-            checkConnection();
-            output.writeObject(Options.JOIN_RACE);
+            output.writeObject(o);
             output.flush();
-        } catch (Exception e) {
+        } catch (IOException e) {
             connect();
-            joinRace();
+            output.writeObject(o);
+            output.flush();
         }
     }
 
-    public void sendLap(Lap lap) throws Exception {
-        Log.d(LOG_TAG, "sending lap");
-        output.writeObject(lap);
+    private static Object readObject() throws IOException, ClassNotFoundException {
+        checkNullPointers();
+
+        try {
+            return input.readObject();
+        } catch (IOException e) {
+            connect();
+            return input.readObject();
+        }
     }
 
-    public void waitForStart() throws Exception {
+    public static void joinRace() throws IOException {
+        writeObject(Options.JOIN_RACE);
+    }
+
+    public static void sendLap(Lap lap) throws IOException {
+        Log.d(LOG_TAG, "sending lap");
+        writeObject(lap);
+    }
+
+    public static void waitForStart() throws IOException, ClassNotFoundException {
         Log.d(LOG_TAG, "waiting for start");
         while (true) {
-            input.readObject();
-            output.writeObject(Options.START_RACE);
-            output.flush();
+            readObject();
+            writeObject(Options.START_RACE);
 
             boolean start = input.readBoolean();
 
@@ -65,30 +85,13 @@ public class ServerHandler {
         }
     }
 
-    public List<Lap> getResults() throws Exception {
-        return (List<Lap>) input.readObject();
+    public static List<Lap> getResults() throws IOException, ClassNotFoundException {
+        return (List<Lap>) readObject();
     }
 
-    public List<Lap> requestLeaderboard() throws Exception {
+    public static List<Lap> requestLeaderboard() throws IOException, ClassNotFoundException {
         Log.d(LOG_TAG, "requesting leaderboard");
-        try {
-            checkConnection();
-            output.writeObject(Options.REQUEST_LEADERBOARD);
-            output.flush();
-        } catch (Exception e) {
-            connect();
-            requestLeaderboard();
-            e.printStackTrace();
-        }
-
-        List<Lap> laps = (List<Lap>) input.readObject();
-
-        Log.d(LOG_TAG, laps.toString());
-        return laps;
-    }
-
-    public void checkConnection() throws Exception{
-        if (socket == null || input == null || output == null) connect();
+        writeObject(Options.REQUEST_LEADERBOARD);
+        return (List<Lap>) readObject();
     }
 }
-
