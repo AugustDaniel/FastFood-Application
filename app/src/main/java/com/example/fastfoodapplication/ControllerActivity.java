@@ -1,17 +1,32 @@
 package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.fastfoodlib.util.Lap;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ControllerActivity extends AppCompatActivity {
 
@@ -42,7 +57,7 @@ public class ControllerActivity extends AppCompatActivity {
         controllerLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,controllerLeft.getId() + " clicked");
+                Log.v(LOGTAG, controllerLeft.getId() + " clicked");
             }
         });
 
@@ -50,24 +65,54 @@ public class ControllerActivity extends AppCompatActivity {
         controllerRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,controllerRight.getId() + " clicked");
+                Log.v(LOGTAG, controllerRight.getId() + " clicked");
             }
         });
 
         controllerGasPedal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                Log.v(LOGTAG, controllerGasPedal.getId() + " clicked");
             }
         });
 
         controllerBreakPedal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(LOGTAG,controllerBreakPedal.getId() + " clicked");
+                Log.v(LOGTAG, controllerBreakPedal.getId() + " clicked");
+            }
+        });
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+                String name = sharedPreferences.getString("name", "Jane Doe");
+
+                //todo test code
+                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+
+                handler.post(() -> {
+                    Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            } catch (Exception e) {
+                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+                finish();
+            }
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ServerHandler.disconnect();
+                finish();
             }
         });
     }
-
-
 }

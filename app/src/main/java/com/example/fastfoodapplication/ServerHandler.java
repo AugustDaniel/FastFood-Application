@@ -34,6 +34,16 @@ public class ServerHandler {
         Log.d(LOG_TAG, "Socket connected");
     }
 
+    public static void disconnect() {
+        try {
+            if (socket != null) socket.close();
+            if (input != null) input.close();
+            if (output != null) output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void checkNullPointers() throws IOException {
         if (socket == null || input == null || output == null) connect();
     }

@@ -1,7 +1,14 @@
 package com.example.fastfoodapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresApi;
@@ -17,11 +24,16 @@ import com.fastfoodlib.util.Lap;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FinishActivity extends AppCompatActivity {
 
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +46,45 @@ public class FinishActivity extends AppCompatActivity {
             return insets;
         });
 
-        ArrayList<Lap> laps =new ArrayList<Lap>();
-        laps.add(new Lap("Circuit", LocalTime.of(3, 32, 45), LocalDate.of(2023, 5, 30)));
-        laps.add(new Lap("Circuit", LocalTime.of(2, 32, 45), LocalDate.of(2023, 5, 30)));
-
-        //TODO set server data in recyclerview
-
         lapRecyclerView = findViewById(R.id.activity_finish_recycler_view);
-
-        lapRecyclerViewAdapter = new LapAdapter(this, laps);
+        lapRecyclerViewAdapter = new LapAdapter(this, new ArrayList<>());
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        TextView scoreText = findViewById(R.id.activity_finish_player_score_text);
+        TextView rankText = findViewById(R.id.activity_finish_player_rank_text);
+        TextView nameText = findViewById(R.id.activity_finish_player_name_text);
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                String name = getSharedPreferences("my_prefs", MODE_PRIVATE).getString("name", "Jane Doe");
+
+                List<Lap> results = ServerHandler.getResults();
+                Collections.sort(results);
+
+                for (int i = 0; i < results.size(); i++) {
+                    if (results.get(i).getName().equals(name)) {
+                        int finalI = i + 1;
+                        handler.post(() -> {
+                            nameText.setText(name);
+                            rankText.setText(Integer.toString(finalI));
+                            scoreText.setText(results.get(finalI).getLapTime().toString());
+                        });
+                        break;
+                    }
+                }
+
+                lapRecyclerViewAdapter.setLaps(results);
+                lapRecyclerViewAdapter.notifyDataSetChanged();
+            } catch (Exception e) {
+                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+                finish();
+            }
+        });
+
 
     }
 }

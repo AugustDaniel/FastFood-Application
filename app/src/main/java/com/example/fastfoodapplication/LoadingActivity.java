@@ -56,7 +56,6 @@ public class LoadingActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 ServerHandler.waitForStart();
-                ServerHandler.sendLap(new Lap("test", LocalTime.now(), LocalDate.now()));
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);
@@ -73,6 +72,8 @@ public class LoadingActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                ServerHandler.disconnect();
+                finish();
             }
         });
     }

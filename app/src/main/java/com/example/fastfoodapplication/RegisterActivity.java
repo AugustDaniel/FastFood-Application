@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("my_prefs", textfield.getText().toString());
+            editor.putString("name", textfield.getText().toString());
             editor.apply();
 
             executor.execute(() -> {
