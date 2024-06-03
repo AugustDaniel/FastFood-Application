@@ -52,6 +52,8 @@ public class BrokerHandler{
 
     public void createConnection(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, BROKER_HOST_URL, CLIENT_ID);
+
+
         mqttAndroidClient.setCallback(new MqttCallback() {
             @Override
             public void connectionLost(Throwable cause) {
@@ -63,13 +65,13 @@ public class BrokerHandler{
                 Log.d(LOGTAG, "MQTT client received message " + message + " on topic " + topic);
                 // Check what topic the message is for and handle accordingly
                 //todo on specific topic handeling
-                for (BrokerObserver observer : observers) {
-                    for (String observerTopic : observer.getSubscriptions()) {
-                        if(observerTopic == topic){
-                            observer.update(message);
-                        }
-                    }
-                }
+//                for (BrokerObserver observer : observers) {
+//                    for (String observerTopic : observer.getSubscriptions()) {
+//                        if(observerTopic == topic){
+//                            observer.update(message);
+//                        }
+//                    }
+//                }
             }
 
             @Override
