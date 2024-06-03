@@ -75,7 +75,7 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
 
         holder.textViewPlacement.setText(place);
         holder.textViewName.setText(lap.getName());
-        holder.textViewscore.setText(lap.getLapTime().toString());
+        holder.textViewscore.setText(lap.getLapTimeFormatted());
     }
 
     public void setLaps(List<Lap> laps) {

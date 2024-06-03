@@ -71,7 +71,7 @@ public class FinishActivity extends AppCompatActivity {
                         handler.post(() -> {
                             nameText.setText(name);
                             rankText.setText(Integer.toString(finalI));
-                            scoreText.setText(results.get(finalI).getLapTime().toString());
+                            scoreText.setText(results.get(finalI).getLapTimeFormatted());
                         });
                         break;
                     }
