@@ -31,6 +31,7 @@ public class BrokerHandler{
     private static final String PASSWORD = "";
 
     private static final String TOPIC_BASE = "avanstibreda/ti/1.4/A1/";
+    private static final String TOPIC_ALL = "#";
 
     private static final String CLIENT_ID = "MQTTExample_" + UUID.randomUUID().toString();
     private static final int QUALITY_OF_SERVICE = 0;
@@ -65,6 +66,9 @@ public class BrokerHandler{
                 Log.d(LOGTAG, "MQTT client received message " + message + " on topic " + topic);
                 // Check what topic the message is for and handle accordingly
                 //todo on specific topic handeling
+                if(topic == TOPIC_BASE+TOPIC_ALL){
+                    System.out.println(message);
+                }
 //                for (BrokerObserver observer : observers) {
 //                    for (String observerTopic : observer.getSubscriptions()) {
 //                        if(observerTopic == topic){
@@ -98,6 +102,7 @@ public class BrokerHandler{
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d(LOGTAG, "MQTT client is now connected to MQTT broker");
+                    subscribeToTopic(TOPIC_ALL);
                 }
 
                 @Override

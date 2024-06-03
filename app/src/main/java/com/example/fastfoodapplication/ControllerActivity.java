@@ -3,8 +3,8 @@ package com.example.fastfoodapplication;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -24,7 +24,7 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
     private ImageButton controllerBreakPedal;
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,36 +43,73 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
 
         BrokerHandler.instance.createConnection(getApplicationContext());
 
-        controllerLeft.setOnClickListener(new View.OnClickListener() {
+        controllerLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Log.v(LOGTAG,controllerLeft.getId() + " clicked");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"true");
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"false");
+
+                }
+                return true;
             }
+
         });
 
 
-        controllerRight.setOnClickListener(new View.OnClickListener() {
+        controllerRight.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Log.v(LOGTAG,controllerRight.getId() + " clicked");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"true");
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"false");
+
+                }
+                return true;
             }
+
         });
 
-        controllerGasPedal.setOnClickListener(new View.OnClickListener() {
+        controllerGasPedal.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"true");
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"false");
+
+                }
+                return true;
             }
+
         });
 
-        controllerBreakPedal.setOnClickListener(new View.OnClickListener() {
+        controllerBreakPedal.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                Log.v(LOGTAG,controllerBreakPedal.getId() + " clicked");
-//                sendMessage(BrokerHandler.topicType.BREAK,"Q");
-                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"Q");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"true");
 
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"false");
+
+                }
+                return true;
             }
+
         });
     }
 
