@@ -102,7 +102,7 @@ public class ControllerActivity extends AppCompatActivity {
                     finish();
                 });
             } catch (Exception e) {
-                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 finish();
             }
         });
