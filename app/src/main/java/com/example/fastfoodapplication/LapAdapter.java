@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fastfoodlib.util.Lap;
 
-import java.util.Collections;
 import java.util.List;
 
 public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
