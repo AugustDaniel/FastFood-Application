@@ -1,12 +1,13 @@
 package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
         continueButton = findViewById(R.id.activity_register_button_continue);
         textfield = findViewById(R.id.activity_register_text_input_name);
 
+
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -51,10 +54,20 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
         continueButton.setOnClickListener(view -> {
             Log.v(LOGTAG, continueButton.getId() + " clicked");
 
+            if (textfield.getText() == null || textfield.getText().toString().isEmpty()) {
+                Toast.makeText(RegisterActivity.this, R.string.vul_naam_in, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("name", textfield.getText().toString());
+            editor.apply();
+
             executor.execute(() -> {
                 try {
                     Log.d(LOGTAG, "Going to join race");
-                    ServerHandler.instance.startRace();
+                    ServerHandler.joinRace();
                     handler.post(() -> {
                         Log.d(LOGTAG, "Going to start race");
                         Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);
@@ -63,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
                     });
                 } catch (Exception e) {
                     Log.d(LOGTAG, Objects.requireNonNull(e.getMessage()));
-                    handler.post(() -> Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_LONG).show());
+                    handler.post(() -> Toast.makeText(RegisterActivity.this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 }
             });
         });

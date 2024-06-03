@@ -58,6 +58,8 @@
             android:backgroundTint="@color/yellow"
             android:fontFamily="@font/super_brigade"
             android:hint="@string/naam"
+            android:inputType="text"
+            android:maxLength="10"
             app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"
             app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
     </com.google.android.material.textfield.TextInputLayout>

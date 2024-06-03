@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FastFood</string>
+    <string name="explanation">Please enter your name and press on continue</string>
+    <string name="continue_text">Continue</string>
+    <string name="start">Start</string>
+    <string name="uitleg">Tutorial</string>
+    <string name="scorebord">Scoreboard</string>
+    <string name="naam">Name</string>
+    <string name="loading_text">Please be patient, the race will start soon</string>
+    <string name="welkom_text">Welcome to FastFood the mobile experience of The Essteling</string>
+    <string name="er_is_iets_mis_gegaan">Something went wrong</string>
+    <string name="vul_naam_in">Enter name</string>
+</resources>

@@ -18,6 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.fastfoodlib.util.Lap;
+
 import java.security.spec.ECField;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -53,8 +55,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         executor.execute(() -> {
             try {
-                ServerHandler.instance.waitForStart();
-                ServerHandler.instance.sendLap(new Lap("test", LocalTime.now(), LocalDate.now()));
+                ServerHandler.waitForStart();
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);
@@ -62,7 +63,7 @@ public class LoadingActivity extends AppCompatActivity {
                 });
             } catch (Exception e) {
                 Log.d(LOG_TAG, Objects.requireNonNull(e.getMessage()));
-                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 finish();
             }
         });
@@ -71,6 +72,8 @@ public class LoadingActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                ServerHandler.disconnect();
+                finish();
             }
         });
     }

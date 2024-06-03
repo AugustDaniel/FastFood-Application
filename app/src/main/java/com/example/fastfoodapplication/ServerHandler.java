@@ -2,29 +2,30 @@ package com.example.fastfoodapplication;
 
 import android.util.Log;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.time.LocalTime;
+import java.security.cert.PKIXRevocationChecker;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "192.168.1.103";
+    private static final String IP_ADDRESS = "145.49.57.84";
     private static final int PORT = 8000;
-    public static ServerHandler instance = new ServerHandler();
-    private final static String LOG_TAG = "SERVER_HANDLER_INSTANCE";
-    private Socket socket;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private final static String LOG_TAG = "SERVER_HANDLER";
+    private static Socket socket;
+    private static ObjectInputStream input;
+    private static ObjectOutputStream output;
 
     private ServerHandler() {
     }
 
-    public void connect() throws Exception {
+    public static void connect() throws IOException {
         Log.d(LOG_TAG, "Socket trying to connect...");
         socket = new Socket();
         socket.connect(new InetSocketAddress(IP_ADDRESS, PORT), 1000); // TODO: Change IP_ADDRESS if needed
@@ -33,41 +34,74 @@ public class ServerHandler {
         Log.d(LOG_TAG, "Socket connected");
     }
 
-    public void startRace() throws Exception {
+    public static void disconnect() {
         try {
-            output.writeByte(0);
-            output.flush();
+            if (socket != null) socket.close();
+            if (input != null) input.close();
+            if (output != null) output.close();
         } catch (Exception e) {
-            connect();
-            startRace();
+            e.printStackTrace();
         }
     }
 
-    public void sendLap(Lap lap) throws Exception {
+    private static void checkNullPointers() throws IOException {
+        if (socket == null || input == null || output == null) connect();
+    }
+
+    private static void writeObject(Object o) throws IOException {
+        checkNullPointers();
+
+        try {
+            output.writeObject(o);
+            output.flush();
+        } catch (IOException e) {
+            connect();
+            output.writeObject(o);
+            output.flush();
+        }
+    }
+
+    private static Object readObject() throws IOException, ClassNotFoundException {
+        checkNullPointers();
+
+        try {
+            return input.readObject();
+        } catch (IOException e) {
+            connect();
+            return input.readObject();
+        }
+    }
+
+    public static void joinRace() throws IOException {
+        writeObject(Options.JOIN_RACE);
+    }
+
+    public static void sendLap(Lap lap) throws IOException {
         Log.d(LOG_TAG, "sending lap");
-        output.writeObject(lap);
-        output.flush();
+        writeObject(lap);
     }
 
-    public void waitForStart() throws Exception {
+    public static void waitForStart() throws IOException, ClassNotFoundException {
         Log.d(LOG_TAG, "waiting for start");
-        input.readBoolean();
-    }
+        while (true) {
+            readObject();
+            writeObject(Options.START_RACE);
 
-    public List<Map.Entry<String, LocalTime>> getResults() throws Exception {
-        return (List<Map.Entry<String, LocalTime>>) input.readObject();
-    }
+            boolean start = input.readBoolean();
 
-    public Set<Map.Entry<String, LocalTime>> requestLeaderboard() throws Exception {
-        Log.d(LOG_TAG, "requesting leaderboard");
-        try {
-            output.writeByte(1);
-            output.flush();
-        } catch (Exception e) {
-            connect();
-            requestLeaderboard();
+            if (start) {
+                break;
+            }
         }
-        return (Set<Map.Entry<String, LocalTime>>) input.readObject();
+    }
+
+    public static List<Lap> getResults() throws IOException, ClassNotFoundException {
+        return (List<Lap>) readObject();
+    }
+
+    public static List<Lap> requestLeaderboard() throws IOException, ClassNotFoundException {
+        Log.d(LOG_TAG, "requesting leaderboard");
+        writeObject(Options.REQUEST_LEADERBOARD);
+        return (List<Lap>) readObject();
     }
 }
-

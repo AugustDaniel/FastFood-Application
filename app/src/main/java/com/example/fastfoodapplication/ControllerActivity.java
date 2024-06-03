@@ -1,19 +1,33 @@
 package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import com.fastfoodlib.util.Lap;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ControllerActivity extends AppCompatActivity implements BrokerObserver {
 
@@ -111,9 +125,39 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
             }
 
         });
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+                String name = sharedPreferences.getString("name", "Jane Doe");
+
+                //todo test code
+                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+
+                handler.post(() -> {
+                    Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            } catch (Exception e) {
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                finish();
+            }
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ServerHandler.disconnect();
+                finish();
+            }
+        });
     }
-
-
     @Override
     public void update(MqttMessage data) {
 

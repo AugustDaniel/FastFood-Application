@@ -23,8 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/super_brigade"
+        android:gravity="center"
+        android:text="@string/welkom_text"
         android:textColor="@color/white"
-        android:textSize="48sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/activity_start_right_vertical_guideline"
         app:layout_constraintStart_toStartOf="@id/activity_start_left_vertical_guideline"
         app:layout_constraintTop_toTopOf="@id/activity_start_logo_guideline" />
@@ -33,13 +36,13 @@
         android:id="@+id/activity_start_tutorial_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="44dp"
         android:backgroundTint="@color/red"
         android:fontFamily="@font/super_brigade"
         android:text="@string/uitleg"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/activity_start_inner_right_vertical_guideline"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/activity_start_inner_left_vertical_guideline"
         app:layout_constraintTop_toBottomOf="@id/activity_start_welcome_text" />
 
@@ -47,7 +50,7 @@
         android:id="@+id/activity_start_play_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/yellow"
         android:fontFamily="@font/super_brigade"
         android:text="@string/start"
@@ -63,7 +66,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/red"
         android:fontFamily="@font/super_brigade"
         android:text="@string/scorebord"
@@ -107,14 +110,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_start_inner_right_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.80" />
 
     <ImageView
         android:id="@+id/imageView"
