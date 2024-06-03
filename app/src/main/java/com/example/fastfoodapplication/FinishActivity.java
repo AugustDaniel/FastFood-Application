@@ -1,5 +1,6 @@
 package com.example.fastfoodapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,15 +26,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class FinishActivity extends AppCompatActivity {
 
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +71,29 @@ public class FinishActivity extends AppCompatActivity {
                 List<Lap> results = ServerHandler.getResults();
                 Collections.sort(results);
 
-                for (int i = 0; i < results.size(); i++) {
-                    if (results.get(i).getName().equals(name)) {
-                        int finalI = i + 1;
+                results.forEach(Lap::getLapTimeFormatted);
+
+                Set<String> set = new HashSet<>();
+                List<Lap> filteredResults = results.stream().filter(lap -> set.add(lap.getName())).collect(Collectors.toList());
+
+                for (int i = 0; i < filteredResults.size(); i++) {
+                    if (filteredResults.get(i).getName().equals(name)) {
+                        int finalI = i;
                         handler.post(() -> {
                             nameText.setText(name);
-                            rankText.setText(Integer.toString(finalI));
-                            scoreText.setText(results.get(finalI).getLapTimeFormatted());
+                            rankText.setText(Integer.toString(finalI + 1));
+                            scoreText.setText(filteredResults.get(finalI).getLapTimeFormatted());
                         });
                         break;
                     }
                 }
 
-                lapRecyclerViewAdapter.setLaps(results);
+                lapRecyclerViewAdapter.setLaps(filteredResults);
                 lapRecyclerViewAdapter.notifyDataSetChanged();
             } catch (Exception e) {
                 handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 finish();
             }
         });
-
-
     }
 }
