@@ -2,6 +2,9 @@ package com.example.fastfoodapplication;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.RequiresApi;
@@ -17,11 +20,16 @@ import com.fastfoodlib.util.Lap;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FinishActivity extends AppCompatActivity {
 
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
+    private List<Lap> leaderboard = new ArrayList<>();
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +46,27 @@ public class FinishActivity extends AppCompatActivity {
         laps.add(new Lap("Circuit", LocalTime.of(3, 32, 45), LocalDate.of(2023, 5, 30)));
         laps.add(new Lap("Circuit", LocalTime.of(2, 32, 45), LocalDate.of(2023, 5, 30)));
 
-        //TODO set server data in recyclerview
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
 
         lapRecyclerView = findViewById(R.id.activity_finish_recycler_view);
 
-        lapRecyclerViewAdapter = new LapAdapter(this, laps);
+        lapRecyclerViewAdapter = new LapAdapter(this, new ArrayList<>(leaderboard));
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        executor.execute(() -> {
+            try {
+                leaderboard = ServerHandler.instance.requestLeaderboard();
+                leaderboard.forEach(System.out::println);
+                if (leaderboard != null) {
+                    lapRecyclerViewAdapter.setLaps(leaderboard);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show());
+            }
+        });
 
     }
 }
