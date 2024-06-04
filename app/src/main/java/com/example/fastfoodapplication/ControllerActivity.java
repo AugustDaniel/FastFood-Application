@@ -62,63 +62,59 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"true");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"t");
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"false");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"f");
 
                 }
                 return true;
             }
 
         });
-
-
         controllerRight.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"true");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"t");
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"false");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"f");
 
                 }
                 return true;
             }
 
         });
-
         controllerGasPedal.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"true");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"t");
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"false");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"f");
 
                 }
                 return true;
             }
 
         });
-
         controllerBreakPedal.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"true");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"t");
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"false");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"f");
 
                 }
                 return true;
@@ -126,29 +122,29 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
 
         });
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(() -> {
-            try {
-                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
-                String name = sharedPreferences.getString("name", "Jane Doe");
-
-                //todo test code
-                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
-                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
-                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
-
-                handler.post(() -> {
-                    Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
-                    startActivity(intent);
-                    finish();
-                });
-            } catch (Exception e) {
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
-                finish();
-            }
-        });
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        Handler handler = new Handler(Looper.getMainLooper());
+//
+//        executor.execute(() -> {
+//            try {
+//                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+//                String name = sharedPreferences.getString("name", "Jane Doe");
+//
+//                //todo test code
+//                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+//                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+//                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+//
+//                handler.post(() -> {
+//                    Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                });
+//            } catch (Exception e) {
+//                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+//                finish();
+//            }
+//        });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override

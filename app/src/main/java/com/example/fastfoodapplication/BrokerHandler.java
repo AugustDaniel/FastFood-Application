@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class BrokerHandler{
@@ -39,9 +40,9 @@ public class BrokerHandler{
     private MqttAndroidClient mqttAndroidClient;
 
     private List<BrokerObserver> observers = new ArrayList<BrokerObserver>();
-    public enum topicType {LEFT,RIGHT,GAS,BREAK}
-    public HashMap<String, Boolean> cars;
-    private String carTopic = "Test/";
+    public enum topicType {LEFT,RIGHT,GAS,BREAK,LINE}
+    public HashMap<String, String> cars;
+    private String carTopic = "";
     public void attach(BrokerObserver observer){
         observers.add(observer);
     }
@@ -63,19 +64,17 @@ public class BrokerHandler{
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
-                Log.d(LOGTAG, "MQTT client received message " + message + " on topic " + topic);
+                Log.d(LOGTAG, "MQTT client received message " + message.toString() + " on topic " + topic);
                 // Check what topic the message is for and handle accordingly
-                //todo on specific topic handeling
-                if(topic == TOPIC_BASE+TOPIC_ALL){
-                    System.out.println(message);
+
+                if(Objects.equals(topic.toString().split("/")[5], "isClaimed") && message.toString().equals("f") && carTopic.length() == 0){
+
+                    carTopic = topic.toString().split("/")[4] + "/";
+                    String topicPart = topic.toString().split("/")[4]+"/isClaimed";
+                    publishMessage(topicPart, "t");
+                    System.out.println("Device coupled to Hardware topic: "+ topic.toString().split("/")[4]);
                 }
-//                for (BrokerObserver observer : observers) {
-//                    for (String observerTopic : observer.getSubscriptions()) {
-//                        if(observerTopic == topic){
-//                            observer.update(message);
-//                        }
-//                    }
-//                }
+
             }
 
             @Override
@@ -102,6 +101,7 @@ public class BrokerHandler{
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.d(LOGTAG, "MQTT client is now connected to MQTT broker");
+
                     subscribeToTopic(TOPIC_ALL);
                 }
 
@@ -118,12 +118,9 @@ public class BrokerHandler{
         }
     }
 
-    public void publishMessage(topicType topicType, String msg) {
-        System.out.println("sending message plz");
-        Log.d(LOGTAG, "MQTT SENDING MESSAGE PLZ");
-
-        String topic = TOPIC_BASE+carTopic+topicType.toString();
-        System.out.println(topic);
+    public void publishMessage(String topic, String msg){
+        String finalTopic = TOPIC_BASE + topic;
+        System.out.println("publishing message to topic: " +finalTopic);
         byte[] encodedPayload = new byte[0];
         try {
             // Convert the message to a UTF-8 encoded byte array
@@ -134,19 +131,23 @@ public class BrokerHandler{
             message.setQos(QUALITY_OF_SERVICE);
             message.setRetained(false);
             // Publish the message via the MQTT broker
-            mqttAndroidClient.publish(topic, message);
+            mqttAndroidClient.publish(finalTopic, message);
         } catch (UnsupportedEncodingException | MqttException e) {
             Log.e(LOGTAG, "MQTT exception while publishing topic to MQTT broker, msg: " + e.getMessage() +
                     ", cause: " + e.getCause());
             e.printStackTrace();
         }
     }
+    public void publishMessage(topicType topicType, String msg) {
+        String topic = carTopic+topicType.toString();
+        publishMessage(topic, msg);
+    }
 
     private void subscribeToTopic(String topic) {
         String finalTopic = TOPIC_BASE+topic;
         try {
             // Try to subscribe to the topic
-            IMqttToken token = mqttAndroidClient.subscribe(topic, QUALITY_OF_SERVICE);
+            IMqttToken token = mqttAndroidClient.subscribe(finalTopic, QUALITY_OF_SERVICE);
             // Set up callbacks to handle the result
             token.setActionCallback(new IMqttActionListener() {
                 @Override
