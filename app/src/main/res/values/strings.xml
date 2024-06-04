@@ -10,4 +10,17 @@
     <string name="tutorial">Tutorial</string>
     <string name="loading_text">Even geduld. De race begint binnekort.</string>
     <string name="welkom_text">Welkom bij de Fastfood mobiele beleving van de Essteling.</string>
+    <string name="filter_always">altijd</string>
+    <string name="filter_day">dag</string>
+    <string name="filter_week">week</string>
+    <string name="filter_month">maand</string>
+    <string name="filter_year">jaar</string>
+
+    <string-array name="filter_options">
+        <item>@string/filter_always</item>
+        <item>@string/filter_day</item>
+        <item>@string/filter_week</item>
+        <item>@string/filter_month</item>
+        <item>@string/filter_year</item>
+    </string-array>
 </resources>
