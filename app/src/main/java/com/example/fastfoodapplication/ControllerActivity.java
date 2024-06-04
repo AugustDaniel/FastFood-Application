@@ -29,11 +29,12 @@ import com.fastfoodlib.util.Lap;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ControllerActivity extends AppCompatActivity implements BrokerObserver {
+public class ControllerActivity extends AppCompatActivity{
 
     private static final String LOGTAG = ControllerActivity.class.getName();
     private ImageButton controllerLeft;
@@ -63,7 +64,7 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
         background = findViewById(R.id.activity_controller_background_linear_layout);
         countdownText = findViewById(R.id.activity_controller_countdown_text_view);
 
-        BrokerHandler.instance.createConnection(getApplicationContext());
+        BrokerHandler.instance.createConnection(getApplicationContext(), this);
 
         new CountDownTimer(4000, 1000) {
             private int counter = 4;
@@ -152,6 +153,19 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
             }
         }.start();
 
+
+
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                ServerHandler.disconnect();
+                finish();
+            }
+        });
+    }
+
+    public void sendLaps(ArrayList<LocalTime> laps){
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -160,10 +174,9 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
                 SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
                 String name = sharedPreferences.getString("name", "Jane Doe");
 
-//                //todo test code
-                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
-                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
-                ServerHandler.sendLap(new Lap(name, LocalTime.now(), LocalDate.now()));
+                for (LocalTime lap : laps) {
+                    ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()));
+                }
 
                 handler.post(() -> {
                     Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
@@ -175,19 +188,5 @@ public class ControllerActivity extends AppCompatActivity implements BrokerObser
                 finish();
             }
         });
-
-
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                ServerHandler.disconnect();
-                finish();
-            }
-        });
     }
-    @Override
-    public void update(MqttMessage data) {
-
-    }
-
 }

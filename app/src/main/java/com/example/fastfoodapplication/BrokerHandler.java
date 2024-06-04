@@ -1,9 +1,15 @@
 package com.example.fastfoodapplication;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.fastfoodlib.util.Lap;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -15,11 +21,13 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class BrokerHandler{
     private static final String LOGTAG = "BrokerHandler";
@@ -39,20 +47,23 @@ public class BrokerHandler{
 
     private MqttAndroidClient mqttAndroidClient;
 
-    private List<BrokerObserver> observers = new ArrayList<BrokerObserver>();
     public enum topicType {LEFT,RIGHT,GAS,BREAK,LINE}
-    public HashMap<String, String> cars;
-    private String carTopic = "";
-    public void attach(BrokerObserver observer){
-        observers.add(observer);
-    }
+    private String clientCar = "";
+
+    private boolean hasPassedCheckpoint;
+    private LocalTime lapStart;
+    private ArrayList<LocalTime> laps;
+    private final int lapsAmmount = 3;
+
+
 
     private BrokerHandler(){
-//        cars = new HashMap<>();
+        this.laps = new ArrayList<>();
     }
 
 
-    public void createConnection(Context context){
+    public void createConnection(Context context, ControllerActivity controllerActivity){
+//        this.context = context;
         mqttAndroidClient = new MqttAndroidClient(context, BROKER_HOST_URL, CLIENT_ID);
 
 
@@ -67,12 +78,42 @@ public class BrokerHandler{
                 Log.d(LOGTAG, "MQTT client received message " + message.toString() + " on topic " + topic);
                 // Check what topic the message is for and handle accordingly
 
-                if(Objects.equals(topic.toString().split("/")[5], "isClaimed") && message.toString().equals("f") && carTopic.length() == 0){
+                String carTopic = topic.toString().split("/")[4];
+                String secondaryTopic = topic.toString().split("/")[5];
 
-                    carTopic = topic.toString().split("/")[4] + "/";
+                System.out.println(clientCar);
+                System.out.println(carTopic);
+                System.out.println(secondaryTopic);
+
+                if(Objects.equals(secondaryTopic, "isClaimed") && message.toString().equals("f") && clientCar.length() == 0){
+
+                    clientCar =  carTopic;
                     String topicPart = topic.toString().split("/")[4]+"/isClaimed";
                     publishMessage(topicPart, "t");
                     System.out.println("Device coupled to Hardware topic: "+ topic.toString().split("/")[4]);
+                }
+                else if(carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())){
+//                    System.out.println("Line message");
+                    if(message.toString().equals("z")){
+                        if(hasPassedCheckpoint){
+                            LocalTime lap = LocalTime.now()
+                                    .minusHours(lapStart.getHour())
+                                    .minusMinutes(lapStart.getMinute())
+                                    .minusSeconds(lapStart.getSecond())
+                                    .minusNanos(lapStart.getNano());
+                            System.out.println("new lap: "+lap);
+                            laps.add(lap);
+                            if(laps.size() == lapsAmmount){
+                                controllerActivity.sendLaps(laps);
+                            }
+                        }
+
+                        lapStart = LocalTime.now();
+                        hasPassedCheckpoint = false;
+                    }else if(message.toString().equals("r")){
+                        hasPassedCheckpoint = true;
+                    }
+
                 }
 
             }
@@ -139,7 +180,7 @@ public class BrokerHandler{
         }
     }
     public void publishMessage(topicType topicType, String msg) {
-        String topic = carTopic+topicType.toString();
+        String topic = clientCar+ "/" +topicType.toString();
         publishMessage(topic, msg);
     }
 
