@@ -15,6 +15,10 @@
     <string name="filter_week">week</string>
     <string name="filter_month">maand</string>
     <string name="filter_year">jaar</string>
+    <string name="tutorial_links">links</string>
+    <string name="tutorial_rechts">rechts</string>
+    <string name="tutorial_gas">gas</string>
+    <string name="tutorial_remmen">remmen</string>
 
     <string-array name="filter_options">
         <item>@string/filter_always</item>

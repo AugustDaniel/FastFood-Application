@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FastFood</string>
+    <string name="filter_always">always</string>
+    <string name="filter_day">day</string>
+    <string name="filter_week">week</string>
+    <string name="filter_month">month</string>
+    <string name="filter_year">year</string>
+</resources>
