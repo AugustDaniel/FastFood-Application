@@ -69,35 +69,20 @@ public class FinishActivity extends AppCompatActivity {
                 String name = getSharedPreferences("my_prefs", MODE_PRIVATE).getString("name", "Jane Doe");
 
                 List<Lap> results = ServerHandler.getResults();
+                Collections.sort(results);
 
-                List<Lap> bestResults = results
-                        .stream()
-                        .sorted()
-                        .collect(Collectors.collectingAndThen(
-                                Collectors.toMap(
-                                        Lap::getName,
-                                        lap -> lap,
-                                        (lap1, lap2) -> lap1
-                                ),
-                                map -> results.stream()
-                                        .filter(map::containsValue)
-                                        .collect(Collectors.toList())
-                        ));
-
-                Lap personalBest = results
-                        .stream()
+                Lap personalBest = results.stream()
                         .filter(lap -> lap.getName().equals(name))
-                        .sorted()
                         .findFirst()
                         .get();
 
                 handler.post(() -> {
                     nameText.setText(name);
-                    rankText.setText(Integer.toString(bestResults.indexOf(personalBest) + 1));
+                    rankText.setText(Integer.toString(results.indexOf(personalBest) + 1));
                     scoreText.setText(personalBest.getLapTimeFormatted());
                 });
 
-                lapRecyclerViewAdapter.setLaps(bestResults);
+                lapRecyclerViewAdapter.setLaps(results);
                 lapRecyclerViewAdapter.notifyDataSetChanged();
             } catch (Exception e) {
                 handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
