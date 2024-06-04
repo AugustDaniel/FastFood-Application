@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button continueButton;
     private TextInputEditText textfield;
     private static final String LOGTAG = ControllerActivity.class.getName();
+    private static final String DEFAULT_NAME = "Jane Doe";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -43,11 +44,14 @@ public class RegisterActivity extends AppCompatActivity {
         continueButton = findViewById(R.id.activity_register_button_continue);
         textfield = findViewById(R.id.activity_register_text_input_name);
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", DEFAULT_NAME);
+        if (!name.equals(DEFAULT_NAME)) {
+            textfield.setText(name);
+        }
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
-
 
         continueButton.setOnClickListener(view -> {
             Log.v(LOGTAG, continueButton.getId() + " clicked");
@@ -57,7 +61,6 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("name", textfield.getText().toString());
             editor.apply();
