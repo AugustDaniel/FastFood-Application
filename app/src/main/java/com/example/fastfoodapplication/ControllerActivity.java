@@ -10,8 +10,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +24,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import com.fastfoodlib.util.Lap;
 
 import java.time.LocalDate;
@@ -32,7 +33,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ControllerActivity extends AppCompatActivity {
+public class ControllerActivity extends AppCompatActivity implements BrokerObserver {
 
     private static final String LOGTAG = ControllerActivity.class.getName();
     private ImageButton controllerLeft;
@@ -43,7 +44,7 @@ public class ControllerActivity extends AppCompatActivity {
     private TextView countdownText;
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,8 @@ public class ControllerActivity extends AppCompatActivity {
         controllerBreakPedal = findViewById(R.id.activity_controller_button_break_pedal);
         background = findViewById(R.id.activity_controller_background_linear_layout);
         countdownText = findViewById(R.id.activity_controller_countdown_text_view);
+
+        BrokerHandler.instance.createConnection(getApplicationContext());
 
         new CountDownTimer(4000, 1000) {
             private int counter = 4;
@@ -81,10 +84,71 @@ public class ControllerActivity extends AppCompatActivity {
                 background.setBackgroundColor(Color.TRANSPARENT);
                 countdownText.setText("");
 
-                controllerLeft.setOnClickListener(view -> Log.v(LOGTAG, controllerLeft.getId() + " clicked"));
-                controllerRight.setOnClickListener(view -> Log.v(LOGTAG, controllerRight.getId() + " clicked"));
-                controllerGasPedal.setOnClickListener(view -> Log.v(LOGTAG, controllerGasPedal.getId() + " clicked"));
-                controllerBreakPedal.setOnClickListener(view -> Log.v(LOGTAG, controllerBreakPedal.getId() + " clicked"));
+                controllerLeft.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"t");
+
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"f");
+
+                        }
+                        return true;
+                    }
+
+                });
+                controllerRight.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"t");
+
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"f");
+
+                        }
+                        return true;
+                    }
+
+                });
+                controllerGasPedal.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"t");
+
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"f");
+
+                        }
+                        return true;
+                    }
+
+                });
+                controllerBreakPedal.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"t");
+
+                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"f");
+
+                        }
+                        return true;
+                    }
+
+                });
+
             }
         }.start();
 
@@ -112,6 +176,7 @@ public class ControllerActivity extends AppCompatActivity {
             }
         });
 
+
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -120,4 +185,9 @@ public class ControllerActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void update(MqttMessage data) {
+
+    }
+
 }
