@@ -1,5 +1,6 @@
 package com.example.fastfoodapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,15 +26,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class FinishActivity extends AppCompatActivity {
 
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +71,16 @@ public class FinishActivity extends AppCompatActivity {
                 List<Lap> results = ServerHandler.getResults();
                 Collections.sort(results);
 
-                for (int i = 0; i < results.size(); i++) {
-                    if (results.get(i).getName().equals(name)) {
-                        int finalI = i + 1;
-                        handler.post(() -> {
-                            nameText.setText(name);
-                            rankText.setText(Integer.toString(finalI));
-                            scoreText.setText(results.get(finalI).getLapTimeFormatted());
-                        });
-                        break;
-                    }
-                }
+                Lap personalBest = results.stream()
+                        .filter(lap -> lap.getName().equals(name))
+                        .findFirst()
+                        .get();
+
+                handler.post(() -> {
+                    nameText.setText(name);
+                    rankText.setText(Integer.toString(results.indexOf(personalBest) + 1));
+                    scoreText.setText(personalBest.getLapTimeFormatted());
+                });
 
                 lapRecyclerViewAdapter.setLaps(results);
                 lapRecyclerViewAdapter.notifyDataSetChanged();
@@ -84,7 +89,5 @@ public class FinishActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 }
