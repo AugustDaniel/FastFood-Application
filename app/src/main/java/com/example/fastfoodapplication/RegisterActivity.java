@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
             Log.v(LOGTAG, continueButton.getId() + " clicked");
 
             if (textfield.getText() == null || textfield.getText().toString().isEmpty()) {
-                Toast.makeText(RegisterActivity.this, "Fill in name", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, R.string.vul_naam_in, Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                     });
                 } catch (Exception e) {
                     Log.d(LOGTAG, Objects.requireNonNull(e.getMessage()));
-                    handler.post(() -> Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_LONG).show());
+                    handler.post(() -> Toast.makeText(RegisterActivity.this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 }
             });
         });
