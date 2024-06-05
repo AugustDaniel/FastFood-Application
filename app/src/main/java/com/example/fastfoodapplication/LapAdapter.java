@@ -80,6 +80,7 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
 
     public void setLaps(List<Lap> laps) {
         this.laps = laps;
+        notifyDataSetChanged();
     }
 
     @Override

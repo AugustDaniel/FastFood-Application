@@ -57,7 +57,6 @@ public class LeaderboardActivity extends AppCompatActivity {
 
                 if (leaderboard != null) {
                     lapRecyclerViewAdapter.setLaps(leaderboard);
-                    lapRecyclerViewAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
