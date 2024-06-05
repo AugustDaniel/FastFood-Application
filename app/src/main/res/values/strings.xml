@@ -1,13 +1,32 @@
 <resources>
-    <string name="app_name" translatable="false">FastFood</string>
-    <string name="explanation">Vul uw naam in en klik op ga verder</string>
+    <string name="app_name">FastFood</string>
+    <string name="explanation">Vul uw naam in, kies een auto en klik op doorgaan</string>
     <string name="continue_text">Ga verder</string>
     <string name="start">Start</string>
     <string name="uitleg">Uitleg</string>
     <string name="scorebord">Scorebord</string>
-    <string name="naam">Naam</string>
+    <string name="leaderboard_title">Leaderboard</string>
+    <string name="naam">naam</string>
+    <string name="tutorial">Tutorial</string>
     <string name="loading_text">Even geduld. De race begint binnekort.</string>
     <string name="welkom_text">Welkom bij de Fastfood mobiele beleving van de Essteling.</string>
     <string name="er_is_iets_mis_gegaan">Er is iets mis gegaan</string>
     <string name="vul_naam_in">Vul naam in</string>
+    <string name="filter_always">altijd</string>
+    <string name="filter_day">dag</string>
+    <string name="filter_week">week</string>
+    <string name="filter_month">maand</string>
+    <string name="filter_year">jaar</string>
+    <string name="tutorial_links">links</string>
+    <string name="tutorial_rechts">rechts</string>
+    <string name="tutorial_gas">gas</string>
+    <string name="tutorial_remmen">remmen</string>
+
+    <string-array name="filter_options">
+        <item>@string/filter_always</item>
+        <item>@string/filter_day</item>
+        <item>@string/filter_week</item>
+        <item>@string/filter_month</item>
+        <item>@string/filter_year</item>
+    </string-array>
 </resources>
