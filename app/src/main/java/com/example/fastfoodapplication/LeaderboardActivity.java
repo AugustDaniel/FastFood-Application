@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fastfoodlib.util.Lap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -54,6 +55,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 leaderboard = ServerHandler.requestLeaderboard();
+                Collections.sort(leaderboard);
 
                 if (leaderboard != null) {
                     handler.post(() -> {
