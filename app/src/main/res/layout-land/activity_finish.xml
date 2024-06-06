@@ -8,6 +8,18 @@
     android:layout_height="match_parent"
     tools:context=".FinishActivity">
 
+    <Button
+        android:id="@+id/activity_finish_button_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/superbrigade"
+        android:text="@string/continue_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/activity_finish_player_score_text"
+        app:layout_constraintStart_toStartOf="@+id/activity_finish_player_score_text" />
+
     <include
         android:id="@+id/activity_leaderboard_logo"
         layout="@layout/activity_logo"
