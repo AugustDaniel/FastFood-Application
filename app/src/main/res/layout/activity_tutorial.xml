@@ -90,7 +90,7 @@
         android:id="@+id/imageView4"
         android:layout_width="352dp"
         android:layout_height="171dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,12 +101,15 @@
         android:id="@+id/textView6"
         android:layout_width="97dp"
         android:layout_height="18dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="53dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/tutorial_remmen"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_button_continue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.02" />
 
     <TextView
         android:id="@+id/textView7"
@@ -115,9 +118,14 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="1dp"
 
+        android:layout_marginBottom="55dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/tutorial_gas"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_button_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
