@@ -9,23 +9,19 @@
     <string name="naam">Name</string>
     <string name="loading_text">Please be patient, the race will start soon</string>
     <string name="welkom_text">Welcome to FastFood the mobile experience of The Essteling</string>
+    <string name="vul_naam_in">Vul naam in</string>
+
     <string name="filter_always">always</string>
     <string name="filter_day">day</string>
     <string name="filter_week">week</string>
     <string name="filter_month">month</string>
     <string name="filter_year">year</string>
+
     <string name="tutorial_links">left</string>
     <string name="tutorial_rechts">right</string>
     <string name="tutorial_gas">accelerate</string>
     <string name="tutorial_remmen">brake</string>
 
-    <string-array name="filter_options">
-        <item>@string/filter_always</item>
-        <item>@string/filter_day</item>
-        <item>@string/filter_week</item>
-        <item>@string/filter_month</item>
-        <item>@string/filter_year</item>
-    </string-array>
     <string name="er_is_iets_mis_gegaan">Er is iets mis gegaan</string>
-    <string name="vul_naam_in">Vul naam in</string>
+
 </resources>

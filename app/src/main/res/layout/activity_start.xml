@@ -121,11 +121,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="277dp"
-        android:layout_height="335dp"
+        android:layout_width="206dp"
+        android:layout_height="237dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_start_leaderboard_button"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/start_car" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

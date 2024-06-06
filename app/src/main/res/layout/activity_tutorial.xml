@@ -37,90 +37,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_imageView_pedals" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/uitleg"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_logo" />
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/activity_tutorial_imageView_arrows"
         android:layout_width="324dp"
         android:layout_height="120dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/tutorial_left_right" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:fontFamily="@font/super_brigade"
-        android:textColor="@color/white"
-        android:text="@string/tutorial_links"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="92dp"
-        android:fontFamily="@font/super_brigade"
-        android:textColor="@color/white"
-        android:text="@string/tutorial_rechts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:srcCompat="@drawable/arrow_tutorial_en" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="352dp"
-        android:layout_height="171dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/activity_tutorial_imageView_pedals"
+        android:layout_width="316dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/tutorial_pedals" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_imageView_arrows"
+        app:srcCompat="@drawable/pedals_tutorial_en" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="97dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="1dp"
-        android:fontFamily="@font/super_brigade"
-        android:text="@string/tutorial_remmen"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="1dp"
-
-        android:fontFamily="@font/super_brigade"
-        android:text="@string/tutorial_gas"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>
