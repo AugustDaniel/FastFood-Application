@@ -7,17 +7,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.security.cert.PKIXRevocationChecker;
 import java.util.List;
-import java.util.Set;
 
 import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "145.49.59.204";
+    private static final String IP_ADDRESS = "192.168.1.103";
     private static final int PORT = 8000;
-    private final static String LOG_TAG = "SERVER_HANDLER";
+    private static final String LOG_TAG = "SERVER_HANDLER";
     private static Socket socket;
     private static ObjectInputStream input;
     private static ObjectOutputStream output;
@@ -35,10 +33,14 @@ public class ServerHandler {
     }
 
     public static void disconnect() {
+        Log.d(LOG_TAG, "Disconnecting socket");
         try {
-            if (socket != null) socket.close();
             if (input != null) input.close();
             if (output != null) output.close();
+            if (socket != null) socket.close();
+            input = null;
+            output = null;
+            socket = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,26 +52,13 @@ public class ServerHandler {
 
     private static void writeObject(Object o) throws IOException {
         checkNullPointers();
-
-        try {
-            output.writeObject(o);
-            output.flush();
-        } catch (IOException e) {
-            connect();
-            output.writeObject(o);
-            output.flush();
-        }
+        output.writeObject(o);
+        output.flush();
     }
 
     private static Object readObject() throws IOException, ClassNotFoundException {
         checkNullPointers();
-
-        try {
-            return input.readObject();
-        } catch (IOException e) {
-            connect();
-            return input.readObject();
-        }
+        return input.readObject();
     }
 
     public static void joinRace() throws IOException {

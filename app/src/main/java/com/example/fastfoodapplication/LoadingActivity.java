@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.fastfoodlib.util.Lap;
 
+import java.net.SocketException;
 import java.security.spec.ECField;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -62,8 +63,12 @@ public class LoadingActivity extends AppCompatActivity {
                     finish();
                 });
             } catch (Exception e) {
-                Log.d(LOG_TAG, Objects.requireNonNull(e.getMessage()));
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                e.printStackTrace();
+
+                if (!(e instanceof SocketException)) {
+                    handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                } //todo maybe delete this idk yet
+
                 finish();
             }
         });
@@ -72,6 +77,7 @@ public class LoadingActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                executor.shutdownNow();
                 ServerHandler.disconnect();
                 finish();
             }
