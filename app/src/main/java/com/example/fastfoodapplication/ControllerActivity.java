@@ -75,6 +75,7 @@ public class ControllerActivity extends AppCompatActivity{
                 counter--;
 
                 if (counter != 0) {
+                    
                     countdownText.setText(String.format("%o", counter));
                 } else {
                     countdownText.setText(R.string.start);

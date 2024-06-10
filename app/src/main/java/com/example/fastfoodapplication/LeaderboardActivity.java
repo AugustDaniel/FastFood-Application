@@ -57,7 +57,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         spinnerFilter = findViewById(R.id.activity_leaderboard_spinner_filter);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.filter_options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_text);
         spinnerFilter.setAdapter(adapter);
 
         spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
