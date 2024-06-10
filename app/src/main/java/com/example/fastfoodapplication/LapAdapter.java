@@ -45,9 +45,9 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textViewPlacement = itemView.findViewById(R.id.activity_items_placement);
-            textViewName = itemView.findViewById(R.id.activity_item_name);
-            textViewscore = itemView.findViewById(R.id.activity_item_score);
+            textViewPlacement = itemView.findViewById(R.id.row_lap_rv_placement_text);
+            textViewName = itemView.findViewById(R.id.row_lap_rv_name_text);
+            textViewscore = itemView.findViewById(R.id.row_lap_rv_score_text);
             itemView.setOnClickListener(this);
         }
 
