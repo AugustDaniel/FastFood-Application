@@ -48,7 +48,7 @@ public class BrokerHandler{
     private MqttAndroidClient mqttAndroidClient;
 
     public enum topicType {LEFT,RIGHT,GAS,BREAK,LINE}
-    private String clientCar = "";
+    public String clientCar = "";
 
     private boolean hasPassedCheckpoint;
     private LocalTime lapStart;
@@ -88,6 +88,7 @@ public class BrokerHandler{
                 if(Objects.equals(secondaryTopic, "isClaimed") && message.toString().equals("f") && clientCar.length() == 0){
 
                     clientCar =  carTopic;
+                    controllerActivity.carNameText.setText(clientCar);
                     String topicPart = topic.toString().split("/")[4]+"/isClaimed";
                     publishMessage(topicPart, "t");
                     System.out.println("Device coupled to Hardware topic: "+ topic.toString().split("/")[4]);

@@ -24,13 +24,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 import com.fastfoodlib.util.Lap;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,6 +39,7 @@ public class ControllerActivity extends AppCompatActivity{
     private ImageButton controllerRight;
     private ImageButton controllerGasPedal;
     private ImageButton controllerBreakPedal;
+    public TextView carNameText;
     private LinearLayout background;
     private TextView countdownText;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -64,6 +63,8 @@ public class ControllerActivity extends AppCompatActivity{
         controllerBreakPedal = findViewById(R.id.activity_controller_button_break_pedal);
         background = findViewById(R.id.activity_controller_background_linear_layout);
         countdownText = findViewById(R.id.activity_controller_countdown_text_view);
+        carNameText = findViewById(R.id.activity_controller_car_name_text);
+
 
         BrokerHandler.instance.createConnection(getApplicationContext(), this);
 
