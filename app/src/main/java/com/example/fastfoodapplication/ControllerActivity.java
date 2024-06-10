@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -74,8 +75,10 @@ public class ControllerActivity extends AppCompatActivity{
                 counter--;
 
                 if (counter != 0) {
+                    MediaPlayer.create(ControllerActivity.this, R.raw.race_countdown_sound).start();
                     countdownText.setText(String.format("%o", counter));
                 } else {
+                    MediaPlayer.create(ControllerActivity.this, R.raw.race_start_sound).start();
                     countdownText.setText(R.string.start);
                 }
             }
