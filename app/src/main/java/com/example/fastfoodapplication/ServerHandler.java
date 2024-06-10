@@ -7,9 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.security.cert.PKIXRevocationChecker;
 import java.util.List;
-import java.util.Set;
 
 import com.fastfoodlib.util.*;
 
@@ -21,6 +19,8 @@ public class ServerHandler {
     private static Socket socket;
     private static ObjectInputStream input;
     private static ObjectOutputStream output;
+    private static int lapsInRace = 0;
+    private static int lapCounter = 0;
 
     private ServerHandler() {
     }
@@ -68,9 +68,17 @@ public class ServerHandler {
         writeObject(Options.JOIN_RACE);
     }
 
-    public static void sendLap(Lap lap) throws IOException {
+    public static boolean sendLap(Lap lap) throws IOException {
         Log.d(LOG_TAG, "sending lap");
         writeObject(lap);
+        lapCounter++;
+
+        if (lapCounter == lapsInRace) {
+            lapCounter = 0;
+            return true;
+        }
+
+        return false;
     }
 
     public static void waitForStart() throws IOException, ClassNotFoundException {
@@ -82,6 +90,7 @@ public class ServerHandler {
             boolean start = input.readBoolean();
 
             if (start) {
+                lapsInRace = input.readInt();
                 break;
             }
         }

@@ -10,7 +10,7 @@
     <string name="loading_text">Please be patient, the race will start soon</string>
     <string name="welkom_text">Welcome to FastFood the mobile experience of The Essteling</string>
     <string name="vul_naam_in">Enter your name</string>
-
+    <string name="waiting_on_results">Waiting for other players to finish</string>
     <string name="filter_always">All</string>
     <string name="filter_day">Day</string>
     <string name="filter_week">Week</string>

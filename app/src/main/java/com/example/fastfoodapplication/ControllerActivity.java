@@ -175,9 +175,11 @@ public class ControllerActivity extends AppCompatActivity{
 
         });
 
+
+
     }
 
-    public void sendLaps(ArrayList<LocalTime> laps){
+    public void sendLaps(LocalTime lap){
         Handler handler = new Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
@@ -185,15 +187,13 @@ public class ControllerActivity extends AppCompatActivity{
                 SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
                 String name = sharedPreferences.getString("name", "Jane Doe");
 
-                for (LocalTime lap : laps) {
-                    ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()));
+                if (ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()))) {
+                    handler.post(() -> {
+                        Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
                 }
-
-                handler.post(() -> {
-                    Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
-                    startActivity(intent);
-                    finish();
-                });
             } catch (Exception e) {
                 handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 finish();

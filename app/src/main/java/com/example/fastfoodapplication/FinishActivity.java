@@ -65,6 +65,8 @@ public class FinishActivity extends AppCompatActivity {
         TextView nameText = findViewById(R.id.activity_finish_player_name_text);
         Button buttonContinue = findViewById(R.id.activity_finish_button_continue);
 
+        nameText.setText(R.string.waiting_on_results);
+
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
