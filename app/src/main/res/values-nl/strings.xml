@@ -26,5 +26,7 @@
         <item>@string/filter_month</item>
         <item>@string/filter_year</item>
     </string-array>
+    <string name="thanks">Dankjewel voor het spelen!</string>
+    <string name="see_leaderboard">Je kan je score bekijken in het Scorebord</string>
 
 </resources>

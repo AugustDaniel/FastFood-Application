@@ -8,6 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +63,19 @@ public class FinishActivity extends AppCompatActivity {
         TextView scoreText = findViewById(R.id.activity_finish_player_score_text);
         TextView rankText = findViewById(R.id.activity_finish_player_rank_text);
         TextView nameText = findViewById(R.id.activity_finish_player_name_text);
+        Button buttonContinue = findViewById(R.id.activity_finish_button_continue);
+
+        buttonContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Log.v(LOGTAG, buttonContinue.getId() + " clicked");
+                Intent intent = new Intent(FinishActivity.this, StartActivity.class);
+                startActivity(intent);
+
+                Toast.makeText(view.getContext(),R.string.thanks,Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(),R.string.see_leaderboard,Toast.LENGTH_LONG).show();
+            }
+        });
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
