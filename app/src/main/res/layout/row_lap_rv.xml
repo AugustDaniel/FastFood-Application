@@ -50,12 +50,10 @@
 
     <View
         android:id="@+id/row_lap_rv_yellow_border"
-        android:layout_width="400dp"
+        android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="13dp"
         android:background="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
