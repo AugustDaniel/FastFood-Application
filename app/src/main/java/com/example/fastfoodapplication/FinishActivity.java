@@ -98,12 +98,14 @@ public class FinishActivity extends AppCompatActivity {
                     });
                 } else {
                     handler.post(() -> {
-                        nameText.setText("No laps set");
+                        nameText.setText(R.string.no_laps_set);
                     });
                 }
 
-                lapRecyclerViewAdapter.setLaps(results);
-                lapRecyclerViewAdapter.notifyDataSetChanged();
+                handler.post(() -> {
+                    lapRecyclerViewAdapter.setLaps(results);
+                    lapRecyclerViewAdapter.notifyDataSetChanged();
+                });
             } catch (Exception e) {
                 e.printStackTrace();
                 handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
