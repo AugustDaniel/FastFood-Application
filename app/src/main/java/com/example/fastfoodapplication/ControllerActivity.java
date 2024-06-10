@@ -175,8 +175,25 @@ public class ControllerActivity extends AppCompatActivity{
 
         });
 
+        Handler handler = new Handler(Looper.getMainLooper());
 
-
+        executor.execute(() -> {
+            try {
+                if (ServerHandler.waitForTimeOut()) {
+                    System.out.println("done waiting for start");
+                    handler.post(() -> {
+                        Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
+                        startActivity(intent);
+                        System.out.println("started");
+//                        finish();
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                finish();
+            }
+        });
     }
 
     public void sendLaps(LocalTime lap){
@@ -195,6 +212,7 @@ public class ControllerActivity extends AppCompatActivity{
                     });
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 finish();
             }

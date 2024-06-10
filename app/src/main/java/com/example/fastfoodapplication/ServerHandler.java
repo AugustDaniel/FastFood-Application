@@ -96,6 +96,11 @@ public class ServerHandler {
         }
     }
 
+    public static boolean waitForTimeOut() throws IOException {
+        System.out.println("waiting");
+        return input.readBoolean();
+    }
+
     public static List<Lap> getResults() throws IOException, ClassNotFoundException {
         return (List<Lap>) readObject();
     }
