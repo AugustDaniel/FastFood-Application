@@ -11,38 +11,11 @@
     tools:ignore="DiscouragedApi">
 
     <ImageButton
-        android:id="@+id/activity_controller_button_gas_pedal"
-        android:layout_width="138dp"
-        android:layout_height="252dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/black"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496"
-        app:srcCompat="@drawable/pedaal1" />
-
-
-    <ImageButton
-        android:id="@+id/activity_controller_button_break_pedal"
-        android:layout_width="138dp"
-        android:layout_height="252dp"
-        android:layout_marginEnd="12dp"
-        android:backgroundTint="@color/black"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_controller_button_gas_pedal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496"
-        app:srcCompat="@drawable/pedaal2" />
-
-    <ImageButton
         android:id="@+id/activity_controller_button_left"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="36dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="#00000000"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +27,7 @@
         android:id="@+id/activity_controller_button_right"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="#00000000"
         android:rotationY="180"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,16 +36,42 @@
         app:layout_constraintVertical_bias="0.493"
         app:srcCompat="@drawable/arrow_left_button" />
 
+    <ImageButton
+        android:id="@+id/activity_controller_button_break_pedal"
+        android:layout_width="138dp"
+        android:layout_height="252dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#00000000"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_controller_button_gas_pedal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496"
+        app:srcCompat="@drawable/pedal_red" />
+
+    <ImageButton
+        android:id="@+id/activity_controller_button_gas_pedal"
+        android:layout_width="138dp"
+        android:layout_height="252dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#00000000"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496"
+        app:srcCompat="@drawable/pedal_yellow" />
+
+
     <TextView
         android:id="@+id/activity_controller_car_name_text"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:fontFamily="@font/super_brigade"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_controller_button_break_pedal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -87,72 +87,7 @@ public class ControllerActivity extends AppCompatActivity{
             public void onFinish() {
                 background.setBackgroundColor(Color.TRANSPARENT);
                 countdownText.setText("");
-
-                controllerLeft.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"t");
-
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"f");
-
-                        }
-                        return true;
-                    }
-
-                });
-                controllerRight.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"t");
-
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"f");
-
-                        }
-                        return true;
-                    }
-
-                });
-                controllerGasPedal.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"t");
-
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"f");
-
-                        }
-                        return true;
-                    }
-
-                });
-                controllerBreakPedal.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"t");
-
-                        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                            Log.v(LOGTAG,controllerGasPedal.getId() + " released");
-                            BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"f");
-
-                        }
-                        return true;
-                    }
-
-                });
-
+                setOnTouch();
             }
         }.start();
 
@@ -164,6 +99,82 @@ public class ControllerActivity extends AppCompatActivity{
                 finish();
             }
         });
+    }
+
+    private void setOnTouch() {
+
+        controllerLeft.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerLeft.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"t");
+                    controllerLeft.setImageResource(R.drawable.arrow_left_button_pressed);
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerLeft.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT,"f");
+                    controllerLeft.setImageResource(R.drawable.arrow_left_button);
+
+                }
+                return true;
+            }
+
+        });
+        controllerRight.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerRight.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"t");
+                    controllerRight.setImageResource(R.drawable.arrow_left_button_pressed);
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerRight.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT,"f");
+                    controllerRight.setImageResource(R.drawable.arrow_left_button);
+
+                }
+                return true;
+            }
+
+        });
+        controllerGasPedal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"t");
+                    controllerGasPedal.setImageResource(R.drawable.pedal_yellow_pressed);
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerGasPedal.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS,"f");
+                    controllerGasPedal.setImageResource(R.drawable.pedal_yellow);
+
+                }
+                return true;
+            }
+
+        });
+        controllerBreakPedal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.v(LOGTAG,controllerBreakPedal.getId() + " clicked");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"t");
+                    controllerBreakPedal.setImageResource(R.drawable.pedal_red_pressed);
+
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.v(LOGTAG,controllerBreakPedal.getId() + " released");
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK,"f");
+                    controllerBreakPedal.setImageResource(R.drawable.pedal_red);
+                }
+                return true;
+            }
+
+        });
+
     }
 
     public void sendLaps(ArrayList<LocalTime> laps){
