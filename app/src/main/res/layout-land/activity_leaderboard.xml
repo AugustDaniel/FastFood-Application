@@ -8,6 +8,16 @@
     android:background="@color/black"
     tools:context=".LeaderboardActivity">
 
+    <include
+        android:id="@+id/activity_leaderboard_logo"
+        layout="@layout/activity_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Spinner
         android:id="@+id/activity_leaderboard_spinner_filter"
         android:layout_width="144dp"
@@ -16,16 +26,6 @@
         android:background="@color/yellow"
         app:layout_constraintBottom_toTopOf="@+id/activity_leaderboard_recycler_view_laps"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <include
-        android:id="@+id/activity_leaderboard_logo"
-        layout="@layout/activity_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -57,9 +57,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="276dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="279dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/scorebord"
         android:textAlignment="center"
@@ -67,13 +67,14 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_logo" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_leaderboard_recycler_view_laps"
-        android:layout_width="445dp"
-        android:layout_height="109dp"
+        android:layout_width="449dp"
+        android:layout_height="213dp"
         android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/guideline"
