@@ -13,14 +13,12 @@ import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "145.49.39.222";
+    private static final String IP_ADDRESS = "172.31.208.1";
     private static final int PORT = 8000;
     private final static String LOG_TAG = "SERVER_HANDLER";
     private static Socket socket;
     private static ObjectInputStream input;
     private static ObjectOutputStream output;
-    private static int lapsInRace = 0;
-    private static int lapCounter = 0;
 
     private ServerHandler() {
     }
@@ -68,17 +66,9 @@ public class ServerHandler {
         writeObject(Options.JOIN_RACE);
     }
 
-    public static boolean sendLap(Lap lap) throws IOException {
+    public static void sendLap(Lap lap) throws IOException {
         Log.d(LOG_TAG, "sending lap");
         writeObject(lap);
-        lapCounter++;
-
-        if (lapCounter == lapsInRace) {
-            lapCounter = 0;
-            return true;
-        }
-
-        return false;
     }
 
     public static void waitForStart() throws IOException, ClassNotFoundException {
@@ -90,14 +80,13 @@ public class ServerHandler {
             boolean start = input.readBoolean();
 
             if (start) {
-                lapsInRace = input.readInt();
                 break;
             }
         }
     }
 
     public static boolean waitForTimeOut() throws IOException {
-        System.out.println("waiting");
+        System.out.println("waiting for timeout");
         return input.readBoolean();
     }
 

@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
     private TextInputEditText textfield;
     private static final String LOGTAG = ControllerActivity.class.getName();
     private static final String DEFAULT_NAME = "Jane Doe";
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
             textfield.setText(name);
         }
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
         continueButton.setOnClickListener(view -> {
@@ -78,20 +78,11 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
                         finish();
                     });
                 } catch (Exception e) {
-                    Log.d(LOGTAG, Objects.requireNonNull(e.getMessage()));
+                    e.printStackTrace();
+                    ServerHandler.disconnect();
                     handler.post(() -> Toast.makeText(RegisterActivity.this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
                 }
             });
         });
     }
-
-   /* @Override
-    public void update(MqttMessage data) {
-
-    }
-
-    @Override
-    public void sendMessage(BrokerHandler.topicType topicType, String message) {
-        BrokerObserver.super.sendMessage(topicType, message);
-    }*/
 }

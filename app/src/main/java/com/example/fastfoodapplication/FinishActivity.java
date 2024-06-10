@@ -79,7 +79,10 @@ public class FinishActivity extends AppCompatActivity {
                 String name = getSharedPreferences("my_prefs", MODE_PRIVATE).getString("name", "Jane Doe");
 
                 List<Lap> results = ServerHandler.getResults();
+                ServerHandler.disconnect();
                 Collections.sort(results);
+
+                System.out.println("got results " + results.toString());
 
                 Optional<Lap> personalBestOptional = results.stream()
                         .filter(lap -> lap.getName().equals(name))

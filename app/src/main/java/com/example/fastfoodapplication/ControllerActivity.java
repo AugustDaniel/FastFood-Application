@@ -28,9 +28,11 @@ import com.fastfoodlib.util.Lap;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class ControllerActivity extends AppCompatActivity{
 
@@ -42,7 +44,7 @@ public class ControllerActivity extends AppCompatActivity{
     public TextView carNameText;
     private LinearLayout background;
     private TextView countdownText;
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private ExecutorService executor = Executors.newFixedThreadPool(2);
 
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
@@ -76,7 +78,7 @@ public class ControllerActivity extends AppCompatActivity{
                 counter--;
 
                 if (counter != 0) {
-                    
+
                     countdownText.setText(String.format("%o", counter));
                 } else {
                     countdownText.setText(R.string.start);
@@ -94,11 +96,53 @@ public class ControllerActivity extends AppCompatActivity{
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                executor.shutdownNow();
-                ServerHandler.disconnect();
+                stopServer();
                 finish();
             }
         });
+
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            try {
+                if (ServerHandler.waitForTimeOut()) {
+                    System.out.println("race timed out");
+                    handler.post(() -> {
+                        Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                stopServer();
+                finish();
+            }
+        });
+    }
+
+    public void sendLaps(LocalTime lap){
+        Handler handler = new Handler(Looper.getMainLooper());
+        System.out.println("laptime " + lap.toString());
+        executor.execute(() -> {
+            try {
+                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+                String name = sharedPreferences.getString("name", "Jane Doe");
+                System.out.println("going to send lap");
+                ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                stopServer();
+                finish();
+            }
+        });
+    }
+
+    private void stopServer() {
+        ServerHandler.disconnect();
+        executor.shutdownNow();
     }
 
     private void setOnTouch() {
@@ -173,49 +217,6 @@ public class ControllerActivity extends AppCompatActivity{
                 return true;
             }
 
-        });
-
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(() -> {
-            try {
-                if (ServerHandler.waitForTimeOut()) {
-                    System.out.println("done waiting for start");
-                    handler.post(() -> {
-                        Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
-                        startActivity(intent);
-                        System.out.println("started");
-//                        finish();
-                    });
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
-                finish();
-            }
-        });
-    }
-
-    public void sendLaps(LocalTime lap){
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(() -> {
-            try {
-                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
-                String name = sharedPreferences.getString("name", "Jane Doe");
-
-                if (ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()))) {
-                    handler.post(() -> {
-                        Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
-                        startActivity(intent);
-                        finish();
-                    });
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
-                finish();
-            }
         });
     }
 }
