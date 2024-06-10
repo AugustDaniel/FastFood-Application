@@ -103,13 +103,13 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
         LocalDate currentDate = LocalDate.now();
 
         switch (period) {
-            case "altijd":
-            case "always":
+            case "Altijd":
+            case "All":
                 this.sortedLaps = laps;
                 break;
 
-            case "dag":
-            case "day":
+            case "Dag":
+            case "Day":
                 for (Lap lap : laps) {
                     LocalDate dateOfDrive = lap.getDateOfDrive();
                     long daysBetween = ChronoUnit.DAYS.between(dateOfDrive, currentDate);
@@ -119,7 +119,7 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
                 }
                 break;
 
-            case "week":
+            case "Week":
                 for (Lap lap : laps) {
                     LocalDate dateOfDrive = lap.getDateOfDrive();
                     long daysBetween = ChronoUnit.DAYS.between(dateOfDrive, currentDate);
@@ -129,8 +129,8 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
                 }
                 break;
 
-            case "maand":
-            case "month":
+            case "Maand":
+            case "Month":
                 for (Lap lap : laps) {
                     LocalDate dateOfDrive = lap.getDateOfDrive();
                     long daysBetween = ChronoUnit.DAYS.between(dateOfDrive, currentDate);
@@ -140,8 +140,8 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
                 }
                 break;
 
-            case "jaar":
-            case "year":
+            case "Jaar":
+            case "Year":
                 for (Lap lap : laps) {
                     LocalDate dateOfDrive = lap.getDateOfDrive();
                     long daysBetween = ChronoUnit.DAYS.between(dateOfDrive, currentDate);
