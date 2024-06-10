@@ -23,13 +23,13 @@
         android:id="@+id/activity_register_button_continue"
         android:layout_width="251dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="224dp"
         android:layout_marginBottom="4dp"
         android:backgroundTint="@color/red"
         android:fontFamily="@font/super_brigade"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toTopOf="@+id/activity_register_lower_guidline"
         app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:layout_constraintVertical_bias="0.966" />
 
@@ -37,22 +37,23 @@
         android:id="@+id/activity_register_text_view_name"
         android:layout_width="213dp"
         android:layout_height="52dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/explanation"
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline" />
+        app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline"
+        app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="296dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="204dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/activity_register_right_guideline"
+        app:layout_constraintStart_toStartOf="@+id/activity_register_left_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.469"
         tools:ignore="MissingConstraints">
@@ -60,13 +61,16 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/activity_register_text_input_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/yellow"
             android:backgroundTint="@color/yellow"
+
+            android:fadingEdge="vertical"
             android:fontFamily="@font/super_brigade"
-            android:hint="@string/naam"
             android:inputType="text"
             android:maxLength="10"
+            android:padding="0dp"
+            android:singleLine="true"
             app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"
             app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +14,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Locale;
+
 public class TutorialActivity extends AppCompatActivity {
 
     private Button continueButton;
+    private ImageView arrowsImageView;
+    private ImageView pedalsImageView;
     private static final String LOGTAG = ControllerActivity.class.getName();
 
     @SuppressLint("MissingInflatedId")
@@ -30,6 +35,8 @@ public class TutorialActivity extends AppCompatActivity {
             return insets;
         });
         continueButton = findViewById(R.id.activity_tutorial_button_continue);
+        arrowsImageView = findViewById(R.id.activity_tutorial_imageView_arrows);
+        pedalsImageView = findViewById(R.id.activity_tutorial_imageView_pedals);
 
 
         continueButton.setOnClickListener(new View.OnClickListener() {
@@ -41,5 +48,10 @@ public class TutorialActivity extends AppCompatActivity {
             }
         });
 
+        System.out.println(LOGTAG + " language: " + Locale.getDefault().getLanguage());
+        if(Locale.getDefault().getLanguage() == "nl"){
+            arrowsImageView.setImageResource(R.drawable.arrow_tutorial_nl);
+            pedalsImageView.setImageResource(R.drawable.pedals_tutorial_nl);
+        }
     }
 }

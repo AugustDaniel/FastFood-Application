@@ -43,6 +43,7 @@ public class ControllerActivity extends AppCompatActivity{
     private ImageButton controllerBreakPedal;
     private LinearLayout background;
     private TextView countdownText;
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
@@ -153,12 +154,10 @@ public class ControllerActivity extends AppCompatActivity{
             }
         }.start();
 
-
-
-
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                executor.shutdownNow();
                 ServerHandler.disconnect();
                 finish();
             }
@@ -166,7 +165,6 @@ public class ControllerActivity extends AppCompatActivity{
     }
 
     public void sendLaps(ArrayList<LocalTime> laps){
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
         executor.execute(() -> {

@@ -35,10 +35,15 @@ public class ServerHandler {
     }
 
     public static void disconnect() {
+        Log.d(LOG_TAG, "Disconnecting socket");
         try {
             if (socket != null) socket.close();
             if (input != null) input.close();
             if (output != null) output.close();
+            if (socket != null) socket.close();
+            input = null;
+            output = null;
+            socket = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,26 +55,13 @@ public class ServerHandler {
 
     private static void writeObject(Object o) throws IOException {
         checkNullPointers();
-
-        try {
-            output.writeObject(o);
-            output.flush();
-        } catch (IOException e) {
-            connect();
-            output.writeObject(o);
-            output.flush();
-        }
+        output.writeObject(o);
+        output.flush();
     }
 
     private static Object readObject() throws IOException, ClassNotFoundException {
         checkNullPointers();
-
-        try {
-            return input.readObject();
-        } catch (IOException e) {
-            connect();
-            return input.readObject();
-        }
+        return input.readObject();
     }
 
     public static void joinRace() throws IOException {
