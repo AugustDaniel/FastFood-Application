@@ -2,7 +2,6 @@ package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +68,7 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View lapView = inflater.inflate(R.layout.activity_item, parent, false);
+        View lapView = inflater.inflate(R.layout.row_lap_rv, parent, false);
         return new ViewHolder(lapView);
     }
 

@@ -56,8 +56,8 @@ public class LeaderboardActivity extends AppCompatActivity {
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         spinnerFilter = findViewById(R.id.activity_leaderboard_spinner_filter);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.filter_options, R.layout.spinner_text);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.filter_options, R.layout.text_filter_spinner);
+        adapter.setDropDownViewResource(R.layout.dropdown_filter_spinner);
         spinnerFilter.setAdapter(adapter);
 
         spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
