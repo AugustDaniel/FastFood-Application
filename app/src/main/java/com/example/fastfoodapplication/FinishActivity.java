@@ -2,6 +2,7 @@ package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -33,6 +36,7 @@ public class FinishActivity extends AppCompatActivity {
 
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
+    @StringRes private int status = R.string.waiting_on_results;
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -57,7 +61,7 @@ public class FinishActivity extends AppCompatActivity {
         TextView nameText = findViewById(R.id.activity_finish_player_name_text);
         Button buttonContinue = findViewById(R.id.activity_finish_button_continue);
 
-        nameText.setText(R.string.waiting_on_results);
+        nameText.setText(status);
 
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,5 +116,19 @@ public class FinishActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_finish);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_finish_root), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        TextView nameText = findViewById(R.id.activity_finish_player_name_text);
+        nameText.setText(R.string.waiting_on_results);
     }
 }
