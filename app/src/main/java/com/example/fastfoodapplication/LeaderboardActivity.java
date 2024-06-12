@@ -29,10 +29,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LeaderboardActivity extends AppCompatActivity {
+    private static final String logTag = LeaderboardActivity.class.getName();
     private List<Lap> leaderboard = new ArrayList<>();
-    private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
-    private Spinner spinnerFilter;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -49,13 +48,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
-        lapRecyclerView = findViewById(R.id.activity_leaderboard_laps_recycler_view);
+        RecyclerView lapRecyclerView = findViewById(R.id.activity_leaderboard_laps_recycler_view);
 
-        lapRecyclerViewAdapter = new LapAdapter(this, new ArrayList<>(leaderboard));
+        lapRecyclerViewAdapter = new LapAdapter(new ArrayList<>(leaderboard));
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        spinnerFilter = findViewById(R.id.activity_leaderboard_spinner_filter);
+        Spinner spinnerFilter = findViewById(R.id.activity_leaderboard_spinner_filter);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.filter_options, R.layout.text_filter_spinner);
         adapter.setDropDownViewResource(R.layout.dropdown_filter_spinner);
         spinnerFilter.setAdapter(adapter);
@@ -76,9 +75,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
-
 
         executor.execute(() -> {
             try {
@@ -106,5 +103,4 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         });
     }
-
 }

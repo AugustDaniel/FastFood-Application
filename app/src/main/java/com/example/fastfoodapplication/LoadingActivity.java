@@ -18,21 +18,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.fastfoodlib.util.Lap;
-
 import java.net.SocketException;
-import java.security.spec.ECField;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.AbstractMap;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LoadingActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "LOADING_ACTIVITY";
-    private ImageView spinner;
+    private static final String logTag = LoadingActivity.class.getName();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
@@ -46,7 +38,7 @@ public class LoadingActivity extends AppCompatActivity {
             return insets;
         });
 
-        spinner = findViewById(R.id.activity_loading_spinner_imageview);
+        ImageView spinner = findViewById(R.id.activity_loading_spinner_imageview);
 
         RotateAnimation rotate = new RotateAnimation(0, 360 * 999, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(360 * 999 * 10);
@@ -57,7 +49,7 @@ public class LoadingActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 ServerHandler.waitForStart();
-                System.out.println("done waiting for start");
+                Log.d(logTag, "done waiting for start");
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);
@@ -68,7 +60,7 @@ public class LoadingActivity extends AppCompatActivity {
 
                 if (!(e instanceof SocketException)) {
                     handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
-                } //todo maybe delete this idk yet
+                }
 
                 finish();
             }

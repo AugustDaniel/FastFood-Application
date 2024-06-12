@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,50 +20,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
+    private static final String TAG = LapAdapter.class.getName();
     private List<Lap> laps;
     private List<Lap> sortedLaps;
-    private OnItemClickListener clickListener;
 
-    public interface OnItemClickListener {
-        void onItemClick(int clickedPosition);
-    }
-
-    public LapAdapter(Context context, List<Lap> laps, OnItemClickListener listener) {
-        this.laps = laps;
-        this.clickListener = listener;
-    }
-
-    public LapAdapter(Context context, List<Lap> laps) {
+    public LapAdapter(List<Lap> laps) {
         this.laps = laps;
         this.sortedLaps = laps;
     }
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewPlacement;
         public TextView textViewName;
-        public TextView textViewscore;
+        public TextView textViewScore;
 
         public ViewHolder(View itemView) {
             super(itemView);
             textViewPlacement = itemView.findViewById(R.id.row_lap_rv_placement_text);
             textViewName = itemView.findViewById(R.id.row_lap_rv_name_text);
-            textViewscore = itemView.findViewById(R.id.row_lap_rv_score_text);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (clickListener != null) {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    clickListener.onItemClick(position);
-                }
-            }
+            textViewScore = itemView.findViewById(R.id.row_lap_rv_score_text);
         }
     }
 
-
+    @NonNull
     @Override
     public LapAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -77,13 +57,9 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
     public void onBindViewHolder(LapAdapter.ViewHolder holder, int position) {
         Lap lap = sortedLaps.get(position);
         String place = String.valueOf(sortedLaps.indexOf(lap) + 1);
-        if (place == null) {
-            place = "0";
-        }
-
         holder.textViewPlacement.setText(place);
         holder.textViewName.setText(lap.getName());
-        holder.textViewscore.setText(lap.getLapTimeFormatted());
+        holder.textViewScore.setText(lap.getLapTimeFormatted());
     }
 
     public void setLaps(List<Lap> laps) {
@@ -151,6 +127,4 @@ public class LapAdapter extends RecyclerView.Adapter<LapAdapter.ViewHolder> {
                 break;
         }
     }
-
-
 }

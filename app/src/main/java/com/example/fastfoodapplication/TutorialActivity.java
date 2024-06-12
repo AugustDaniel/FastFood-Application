@@ -18,10 +18,8 @@ import java.util.Locale;
 
 public class TutorialActivity extends AppCompatActivity {
 
+    private static final String logTag = ControllerActivity.class.getName();
     private Button continueButton;
-    private ImageView arrowsImageView;
-    private ImageView pedalsImageView;
-    private static final String LOGTAG = ControllerActivity.class.getName();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,21 +33,18 @@ public class TutorialActivity extends AppCompatActivity {
             return insets;
         });
         continueButton = findViewById(R.id.activity_tutorial_continue_button);
-        arrowsImageView = findViewById(R.id.activity_tutorial_arrows_image_view);
-        pedalsImageView = findViewById(R.id.activity_tutorial_pedals_image_view);
+        ImageView arrowsImageView = findViewById(R.id.activity_tutorial_arrows_image_view);
+        ImageView pedalsImageView = findViewById(R.id.activity_tutorial_pedals_image_view);
 
 
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v(LOGTAG,continueButton.getId() + " clicked");
-                Intent intent = new Intent(TutorialActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        continueButton.setOnClickListener(view -> {
+            Log.v(logTag,continueButton.getId() + " clicked");
+            Intent intent = new Intent(TutorialActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
 
-        System.out.println(LOGTAG + " language: " + Locale.getDefault().getLanguage());
-        if(Locale.getDefault().getLanguage() == "nl"){
+        Log.d(logTag, " language: " + Locale.getDefault().getLanguage());
+        if(Locale.getDefault().getLanguage().equals("nl")){
             arrowsImageView.setImageResource(R.drawable.arrow_tutorial_nl);
             pedalsImageView.setImageResource(R.drawable.pedals_tutorial_nl);
         }

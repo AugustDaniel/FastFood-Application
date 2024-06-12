@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ import java.util.concurrent.Executors;
 
 public class ControllerActivity extends AppCompatActivity {
 
-    private static final String LOGTAG = ControllerActivity.class.getName();
+    private static final String logTag = ControllerActivity.class.getName();
     private ImageButton controllerLeft;
     private ImageButton controllerRight;
     private ImageButton controllerGasPedal;
@@ -42,7 +41,6 @@ public class ControllerActivity extends AppCompatActivity {
     private LinearLayout background;
     private TextView countdownText;
     private ExecutorService executor = Executors.newFixedThreadPool(2);
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,7 +61,6 @@ public class ControllerActivity extends AppCompatActivity {
         background = findViewById(R.id.activity_controller_background_linear_layout);
         countdownText = findViewById(R.id.activity_controller_countdown_text);
         carNameText = findViewById(R.id.activity_controller_car_name_text);
-
 
         BrokerHandler.instance.createConnection(getApplicationContext(), this);
 
@@ -103,7 +100,7 @@ public class ControllerActivity extends AppCompatActivity {
         executor.execute(() -> {
             try {
                 if (ServerHandler.waitForTimeOut()) {
-                    System.out.println("race timed out");
+                    Log.d(logTag, "race timed out");
                     handler.post(() -> {
                         Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
                         startActivity(intent);
@@ -122,18 +119,18 @@ public class ControllerActivity extends AppCompatActivity {
     @Override
     public void finish() {
         BrokerHandler.instance.setIsOnController(false);
-        BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RESET,"t");
+        BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RESET, "t");
         super.finish();
     }
 
     public void sendLaps(LocalTime lap) {
         Handler handler = new Handler(Looper.getMainLooper());
-        System.out.println("laptime " + lap.toString());
+        Log.d(logTag, "laptime " + lap.toString());
         executor.execute(() -> {
             try {
                 SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
                 String name = sharedPreferences.getString("name", "Jane Doe");
-                System.out.println("going to send lap");
+                Log.d(logTag, "going to send lap");
                 ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -152,75 +149,60 @@ public class ControllerActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void setOnTouch() {
 
-        controllerLeft.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(LOGTAG, controllerLeft.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT, "t");
-                    controllerLeft.setImageResource(R.drawable.arrow_left_button_pressed);
+        controllerLeft.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.v(logTag, controllerLeft.getId() + " clicked");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT, "t");
+                controllerLeft.setImageResource(R.drawable.arrow_left_button_pressed);
 
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(LOGTAG, controllerLeft.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT, "f");
-                    controllerLeft.setImageResource(R.drawable.arrow_left_button);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                Log.v(logTag, controllerLeft.getId() + " released");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.LEFT, "f");
+                controllerLeft.setImageResource(R.drawable.arrow_left_button);
 
-                }
-                return true;
             }
-
+            return true;
         });
-        controllerRight.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(LOGTAG, controllerRight.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT, "t");
-                    controllerRight.setImageResource(R.drawable.arrow_left_button_pressed);
+        controllerRight.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.v(logTag, controllerRight.getId() + " clicked");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT, "t");
+                controllerRight.setImageResource(R.drawable.arrow_left_button_pressed);
 
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(LOGTAG, controllerRight.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT, "f");
-                    controllerRight.setImageResource(R.drawable.arrow_left_button);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                Log.v(logTag, controllerRight.getId() + " released");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RIGHT, "f");
+                controllerRight.setImageResource(R.drawable.arrow_left_button);
 
-                }
-                return true;
             }
-
+            return true;
         });
-        controllerGasPedal.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(LOGTAG, controllerGasPedal.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS, "t");
-                    controllerGasPedal.setImageResource(R.drawable.pedal_yellow_pressed);
+        controllerGasPedal.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.v(logTag, controllerGasPedal.getId() + " clicked");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS, "t");
+                controllerGasPedal.setImageResource(R.drawable.pedal_yellow_pressed);
 
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(LOGTAG, controllerGasPedal.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS, "f");
-                    controllerGasPedal.setImageResource(R.drawable.pedal_yellow);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                Log.v(logTag, controllerGasPedal.getId() + " released");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.GAS, "f");
+                controllerGasPedal.setImageResource(R.drawable.pedal_yellow);
 
-                }
-                return true;
             }
-
+            return true;
         });
-        controllerBreakPedal.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Log.v(LOGTAG, controllerBreakPedal.getId() + " clicked");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK, "t");
-                    controllerBreakPedal.setImageResource(R.drawable.pedal_red_pressed);
+        controllerBreakPedal.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Log.v(logTag, controllerBreakPedal.getId() + " clicked");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK, "t");
+                controllerBreakPedal.setImageResource(R.drawable.pedal_red_pressed);
 
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Log.v(LOGTAG, controllerBreakPedal.getId() + " released");
-                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK, "f");
-                    controllerBreakPedal.setImageResource(R.drawable.pedal_red);
-                }
-                return true;
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                Log.v(logTag, controllerBreakPedal.getId() + " released");
+                BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK, "f");
+                controllerBreakPedal.setImageResource(R.drawable.pedal_red);
             }
+            return true;
         });
     }
 }

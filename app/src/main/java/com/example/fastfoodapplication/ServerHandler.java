@@ -13,9 +13,9 @@ import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "145.49.39.222";
-    private static final int PORT = 8000;
-    private final static String LOG_TAG = "SERVER_HANDLER";
+    private final static String logTag = ServerHandler.class.getName();
+    private static final String ipAddress = "145.49.39.222";
+    private static final int port = 8000;
     private static Socket socket;
     private static ObjectInputStream input;
     private static ObjectOutputStream output;
@@ -24,16 +24,16 @@ public class ServerHandler {
     }
 
     public static void connect() throws IOException {
-        Log.d(LOG_TAG, "Socket trying to connect...");
+        Log.d(logTag, "Socket trying to connect...");
         socket = new Socket();
-        socket.connect(new InetSocketAddress(IP_ADDRESS, PORT), 1000); // TODO: Change IP_ADDRESS if needed
+        socket.connect(new InetSocketAddress(ipAddress, port), 1000); //Change ipAddress if needed
         output = new ObjectOutputStream(socket.getOutputStream());
         input = new ObjectInputStream(socket.getInputStream());
-        Log.d(LOG_TAG, "Socket connected");
+        Log.d(logTag, "Socket connected");
     }
 
     public static void disconnect() {
-        Log.d(LOG_TAG, "Disconnecting socket");
+        Log.d(logTag, "Disconnecting socket");
         try {
             if (socket != null) socket.close();
             input = null;
@@ -64,12 +64,12 @@ public class ServerHandler {
     }
 
     public static void sendLap(Lap lap) throws IOException {
-        Log.d(LOG_TAG, "sending lap");
+        Log.d(logTag, "sending lap");
         writeObject(lap);
     }
 
     public static void waitForStart() throws IOException, ClassNotFoundException {
-        Log.d(LOG_TAG, "waiting for start");
+        Log.d(logTag, "waiting for start");
         while (true) {
             readObject();
             writeObject(Options.START_RACE);
@@ -83,7 +83,7 @@ public class ServerHandler {
     }
 
     public static boolean waitForTimeOut() throws IOException {
-        System.out.println("waiting for timeout");
+        Log.d(logTag, "waiting for timeout");
         return input.readBoolean();
     }
 
@@ -92,7 +92,7 @@ public class ServerHandler {
     }
 
     public static List<Lap> requestLeaderboard() throws IOException, ClassNotFoundException {
-        Log.d(LOG_TAG, "requesting leaderboard");
+        Log.d(logTag, "requesting leaderboard");
         writeObject(Options.REQUEST_LEADERBOARD);
         return (List<Lap>) readObject();
     }

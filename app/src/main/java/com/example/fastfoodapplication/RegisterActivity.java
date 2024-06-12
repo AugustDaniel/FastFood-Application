@@ -21,11 +21,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RegisterActivity extends AppCompatActivity/* implements BrokerObserver*/ {
+public class RegisterActivity extends AppCompatActivity {
+    private static final String logTag = ControllerActivity.class.getName();
     private Button continueButton;
-    private TextInputEditText textfield;
-    private static final String LOGTAG = ControllerActivity.class.getName();
-    private static final String DEFAULT_NAME = "Jane Doe";
+    private TextInputEditText textField;
+    private static final String defaultName = "Jane Doe";
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint("MissingInflatedId")
@@ -41,34 +41,34 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
         });
 
         continueButton = findViewById(R.id.activity_register_continue_button);
-        textfield = findViewById(R.id.activity_register_name_text_input);
+        textField = findViewById(R.id.activity_register_name_text_input);
 
         SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", MODE_PRIVATE);
-        String name = sharedPreferences.getString("name", DEFAULT_NAME);
-        if (!name.equals(DEFAULT_NAME)) {
-            textfield.setText(name);
+        String name = sharedPreferences.getString("name", defaultName);
+        if (!name.equals(defaultName)) {
+            textField.setText(name);
         }
 
         Handler handler = new Handler(Looper.getMainLooper());
 
         continueButton.setOnClickListener(view -> {
-            Log.v(LOGTAG, continueButton.getId() + " clicked");
+            Log.v(logTag, continueButton.getId() + " clicked");
 
-            if (textfield.getText() == null || textfield.getText().toString().isEmpty()) {
+            if (textField.getText() == null || textField.getText().toString().isEmpty()) {
                 Toast.makeText(RegisterActivity.this, R.string.vul_naam_in, Toast.LENGTH_LONG).show();
                 return;
             }
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("name", textfield.getText().toString());
+            editor.putString("name", textField.getText().toString());
             editor.apply();
 
             executor.execute(() -> {
                 try {
-                    Log.d(LOGTAG, "Going to join race");
+                    Log.d(logTag, "Going to join race");
                     ServerHandler.joinRace();
                     handler.post(() -> {
-                        Log.d(LOGTAG, "Going to start race");
+                        Log.d(logTag, "Going to start race");
                         Intent intent = new Intent(RegisterActivity.this, LoadingActivity.class);
                         startActivity(intent);
                         finish();

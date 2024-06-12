@@ -10,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class LogoActivity extends AppCompatActivity {
 
+    private static final String logTag = LogoActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FinishActivity extends AppCompatActivity {
-    private RecyclerView lapRecyclerView;
+    private static final String logTag = FinishActivity.class.getName();
     private LapAdapter lapRecyclerViewAdapter;
     private TextView scoreText;
     private TextView rankText;
@@ -42,7 +42,8 @@ public class FinishActivity extends AppCompatActivity {
     private String playerScore;
     private List<Lap> laps = new ArrayList<>();
 
-    @StringRes private int status = R.string.waiting_on_results;
+    @StringRes
+    private int status = R.string.waiting_on_results;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
@@ -57,8 +58,8 @@ public class FinishActivity extends AppCompatActivity {
             return insets;
         });
 
-        lapRecyclerView = findViewById(R.id.activity_finish_recycler_view);
-        lapRecyclerViewAdapter = new LapAdapter(this, laps);
+        RecyclerView lapRecyclerView = findViewById(R.id.activity_finish_recycler_view);
+        lapRecyclerViewAdapter = new LapAdapter(laps);
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
