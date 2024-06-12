@@ -63,11 +63,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_leaderboard_recycler_view_laps"
         android:layout_width="0dp"
-        android:layout_height="484dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_spinner_filter" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_spinner_filter"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Spinner
         android:id="@+id/activity_leaderboard_spinner_filter"
