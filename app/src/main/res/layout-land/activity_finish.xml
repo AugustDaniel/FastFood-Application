@@ -9,7 +9,7 @@
     tools:context=".FinishActivity">
 
     <Button
-        android:id="@+id/activity_finish_button_continue"
+        android:id="@+id/activity_finish_continue_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -17,16 +17,15 @@
         android:fontFamily="@font/superbrigade"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/activity_finish_right_button_guideline"
-        app:layout_constraintStart_toStartOf="@+id/activity_finish_left_button_guideline" />
+        app:layout_constraintEnd_toEndOf="@+id/activity_finish_right_guideline_button"
+        app:layout_constraintStart_toStartOf="@+id/activity_finish_left_guideline_button" />
 
     <include
-        android:id="@+id/activity_leaderboard_logo"
+        android:id="@+id/activity_finish_logo"
         layout="@layout/activity_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,14 +97,14 @@
         app:layout_constraintTop_toTopOf="@id/activity_finish_logo_guideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_finish_left_button_guideline"
+        android:id="@+id/activity_finish_left_guideline_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_finish_right_button_guideline"
+        android:id="@+id/activity_finish_right_guideline_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

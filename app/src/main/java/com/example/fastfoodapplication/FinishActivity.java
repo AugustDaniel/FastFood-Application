@@ -2,19 +2,15 @@ package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -69,7 +65,7 @@ public class FinishActivity extends AppCompatActivity {
         scoreText = findViewById(R.id.activity_finish_player_score_text);
         rankText = findViewById(R.id.activity_finish_player_rank_text);
         nameText = findViewById(R.id.activity_finish_player_name_text);
-        buttonContinue = findViewById(R.id.activity_finish_button_continue);
+        buttonContinue = findViewById(R.id.activity_finish_continue_button);
 
         nameText.setText(status);
 

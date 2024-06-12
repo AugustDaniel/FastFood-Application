@@ -1,7 +1,6 @@
 package com.example.fastfoodapplication;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,9 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -44,8 +40,8 @@ public class RegisterActivity extends AppCompatActivity/* implements BrokerObser
             return insets;
         });
 
-        continueButton = findViewById(R.id.activity_register_button_continue);
-        textfield = findViewById(R.id.activity_register_text_input_name);
+        continueButton = findViewById(R.id.activity_register_continue_button);
+        textfield = findViewById(R.id.activity_register_name_text_input);
 
         SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", MODE_PRIVATE);
         String name = sharedPreferences.getString("name", DEFAULT_NAME);

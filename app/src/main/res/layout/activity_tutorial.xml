@@ -8,72 +8,68 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/activity_leaderboard_logo"
+        android:id="@+id/activity_tutorial_logo"
         layout="@layout/activity_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_left_vertical_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/activity_tutorial_left_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent=".2"
+        app:layout_constraintGuide_percent="0.2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/activity_tutorial_button_continue"
+        android:id="@+id/activity_tutorial_continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/red"
         android:fontFamily="@font/super_brigade"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_imageView_pedals" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_pedals_image_view" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="235dp"
+        android:id="@+id/activity_tutorial_waiting_text"
+        android:layout_width="232dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/uitleg"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/activity_tutorial_left_vertical_guideline" />
 
     <ImageView
-        android:id="@+id/activity_tutorial_imageView_arrows"
+        android:id="@+id/activity_tutorial_arrows_image_view"
         android:layout_width="324dp"
         android:layout_height="120dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_waiting_text"
         app:srcCompat="@drawable/arrow_tutorial_en" />
 
     <ImageView
-        android:id="@+id/activity_tutorial_imageView_pedals"
-        android:layout_width="316dp"
-        android:layout_height="154dp"
-        android:layout_marginTop="36dp"
+        android:id="@+id/activity_tutorial_pedals_image_view"
+        android:layout_width="0dp"
+        android:layout_height="152dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_imageView_arrows"
+        app:layout_constraintTop_toBottomOf="@+id/activity_tutorial_arrows_image_view"
         app:srcCompat="@drawable/pedals_tutorial_en" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

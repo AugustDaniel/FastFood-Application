@@ -34,9 +34,9 @@ public class TutorialActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        continueButton = findViewById(R.id.activity_tutorial_button_continue);
-        arrowsImageView = findViewById(R.id.activity_tutorial_imageView_arrows);
-        pedalsImageView = findViewById(R.id.activity_tutorial_imageView_pedals);
+        continueButton = findViewById(R.id.activity_tutorial_continue_button);
+        arrowsImageView = findViewById(R.id.activity_tutorial_arrows_image_view);
+        pedalsImageView = findViewById(R.id.activity_tutorial_pedals_image_view);
 
 
         continueButton.setOnClickListener(new View.OnClickListener() {

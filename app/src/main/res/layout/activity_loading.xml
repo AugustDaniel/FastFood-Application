@@ -9,66 +9,64 @@
     tools:context=".LoadingActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/activity_loading_left_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
+        android:id="@+id/activity_loading_top_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
+        android:id="@+id/activity_loading_bottom_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
+        android:id="@+id/activity_loading_right_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/activity_loading_logo"
         layout="@layout/activity_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/activity_loading_top_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="300dp"
-        android:layout_height="187dp"
-        android:layout_marginTop="132dp"
+        android:id="@+id/activity_loading_waiting_text"
+        android:layout_width="0dp"
+        android:layout_height="184dp"
+        android:layout_marginTop="128dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/loading_text"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintEnd_toEndOf="@id/activity_loading_right_vertical_guideline"
+        app:layout_constraintStart_toStartOf="@id/activity_loading_left_vertical_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/activity_loading_logo" />
 
     <ImageView
         android:id="@+id/activity_loading_spinner_imageview"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:tint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        android:layout_width="0dp"
+        android:layout_height="112dp"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/activity_loading_bottom_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/car_tire_wheel_icon__1_" />
 

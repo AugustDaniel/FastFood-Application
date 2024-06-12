@@ -49,7 +49,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
-        lapRecyclerView = findViewById(R.id.activity_leaderboard_recycler_view_laps);
+        lapRecyclerView = findViewById(R.id.activity_leaderboard_laps_recycler_view);
 
         lapRecyclerViewAdapter = new LapAdapter(this, new ArrayList<>(leaderboard));
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);

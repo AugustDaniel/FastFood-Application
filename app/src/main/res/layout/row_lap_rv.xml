@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:maxHeight="100dp">
+    android:maxHeight="104dp">
 
     <TextView
         android:id="@+id/row_lap_rv_placement_text"

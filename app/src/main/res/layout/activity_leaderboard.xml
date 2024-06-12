@@ -14,59 +14,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/activity_leaderboard_top_horizontal_guideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/activity_leaderboard_left_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/activity_leaderboard_right_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/activity_leaderboard_top_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/activity_leaderboard_bottom_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="276dp"
-        android:layout_height="52dp"
+        android:id="@+id/activity_leaderboard_title_text"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/scorebord"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/activity_leaderboard_right_vertical_guideline"
+        app:layout_constraintStart_toStartOf="@+id/activity_leaderboard_left_vertical_guideline"
         app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_logo" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_leaderboard_recycler_view_laps"
+        android:id="@+id/activity_leaderboard_laps_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/activity_leaderboard_right_vertical_guideline"
+        app:layout_constraintStart_toStartOf="@+id/activity_leaderboard_left_vertical_guideline"
         app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_spinner_filter"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -75,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/spinner_background"
-        app:layout_constraintEnd_toEndOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintBottom_toTopOf="@id/activity_leaderboard_recycler_view_laps"/>
+        app:layout_constraintEnd_toEndOf="@id/activity_leaderboard_right_vertical_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/activity_leaderboard_title_text"
+        app:layout_constraintBottom_toTopOf="@id/activity_leaderboard_laps_recycler_view"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

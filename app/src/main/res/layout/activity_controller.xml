@@ -11,7 +11,7 @@
     tools:ignore="DiscouragedApi">
 
     <ImageButton
-        android:id="@+id/activity_controller_button_left"
+        android:id="@+id/activity_controller_left_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -20,12 +20,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/activity_controller_button_right"
-        app:layout_constraintVertical_bias="0.493"
+        app:layout_constraintEnd_toStartOf="@id/activity_controller_right_button"
         app:srcCompat="@drawable/arrow_left_button" />
 
     <ImageButton
-        android:id="@+id/activity_controller_button_right"
+        android:id="@+id/activity_controller_right_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:backgroundTint="#00000000"
@@ -33,14 +32,13 @@
         android:scaleType="fitCenter"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/activity_controller_button_left"
+        app:layout_constraintStart_toEndOf="@+id/activity_controller_left_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="@id/activity_controller_middle_guideline"
-        app:layout_constraintVertical_bias="0.493"
         app:srcCompat="@drawable/arrow_left_button" />
 
     <ImageButton
-        android:id="@+id/activity_controller_button_break_pedal"
+        android:id="@+id/activity_controller_break_pedal_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
@@ -52,24 +50,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@id/activity_controller_middle_guideline"
-        app:layout_constraintEnd_toStartOf="@id/activity_controller_button_gas_pedal"
-        app:layout_constraintVertical_bias="0.496"
+        app:layout_constraintEnd_toStartOf="@id/activity_controller_gas_pedal_button"
         app:srcCompat="@drawable/pedal_red" />
 
     <ImageButton
-        android:id="@+id/activity_controller_button_gas_pedal"
+        android:id="@+id/activity_controller_gas_pedal_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#00000000"
         android:scaleType="centerCrop"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginTop="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/activity_controller_button_break_pedal"
-        app:layout_constraintVertical_bias="0.496"
+        app:layout_constraintStart_toEndOf="@id/activity_controller_break_pedal_button"
         app:srcCompat="@drawable/pedal_yellow" />
 
 
@@ -105,7 +101,7 @@
         app:layout_constraintGuide_percent="0.5"/>
 
     <TextView
-        android:id="@+id/activity_controller_countdown_text_view"
+        android:id="@+id/activity_controller_countdown_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/super_brigade"

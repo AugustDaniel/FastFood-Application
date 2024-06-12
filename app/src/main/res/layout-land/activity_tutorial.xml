@@ -8,26 +8,25 @@
     android:background="@color/black">
 
     <include
-        android:id="@+id/activity_leaderboard_logo"
+        android:id="@+id/activity_tutorial_logo"
         layout="@layout/activity_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_left_vertical_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/activity_tutorial_left_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent=".2"
+        app:layout_constraintGuide_percent="0.2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/activity_tutorial_button_continue"
+        android:id="@+id/activity_tutorial_continue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -39,47 +38,46 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="233dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/activity_tutorial_waiting_text"
+        android:layout_width="232dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/uitleg"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_imageView_pedals"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_pedals_image_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/activity_tutorial_imageView_arrows"
-        android:layout_width="305dp"
-        android:layout_height="137dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:layout_constraintVertical_bias="0.508"
+        android:id="@+id/activity_tutorial_arrows_image_view"
+        android:layout_width="304dp"
+        android:layout_height="136dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_middle_horizontal_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/activity_tutorial_middle_vertical_guideline"
+        app:layout_constraintTop_toTopOf="@+id/activity_tutorial_middle_horizontal_guideline"
         app:srcCompat="@drawable/arrow_tutorial_en" />
 
     <ImageView
-        android:id="@+id/activity_tutorial_imageView_pedals"
-        android:layout_width="314dp"
-        android:layout_height="137dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintStart_toEndOf="@+id/activity_tutorial_imageView_arrows"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        android:id="@+id/activity_tutorial_pedals_image_view"
+        android:layout_width="304dp"
+        android:layout_height="136dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_tutorial_middle_horizontal_guideline"
+        app:layout_constraintStart_toEndOf="@+id/activity_tutorial_arrows_image_view"
+        app:layout_constraintTop_toTopOf="@+id/activity_tutorial_middle_horizontal_guideline"
         app:srcCompat="@drawable/pedals_tutorial_en" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
+        android:id="@+id/activity_tutorial_middle_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
+        android:id="@+id/activity_tutorial_middle_vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

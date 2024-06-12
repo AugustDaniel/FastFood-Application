@@ -8,20 +8,19 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/activity_leaderboard_logo"
+        android:id="@+id/activity_register_logo"
         layout="@layout/activity_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/activity_register_upper_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/activity_register_top_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/activity_register_button_continue"
-        android:layout_width="251dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="140dp"
+        android:id="@+id/activity_register_continue_button"
+        android:layout_width="248dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="136dp"
         android:fontFamily="@font/super_brigade"
         android:backgroundTint="@color/red"
         android:text="@string/continue_text"
@@ -30,20 +29,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/activity_register_text_view_name"
-        android:layout_width="270dp"
-        android:layout_height="75dp"
+        android:id="@+id/activity_register_name_text"
+        android:layout_width="272dp"
+        android:layout_height="72dp"
         android:layout_marginTop="96dp"
         android:fontFamily="@font/super_brigade"
         android:text="@string/explanation"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/activity_register_upper_guideline" />
+        app:layout_constraintTop_toTopOf="@+id/activity_register_top_guideline" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_register_upper_guideline"
+        android:id="@+id/activity_register_top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -52,9 +50,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/activity_register_text_input_layout_name"
-        android:layout_width="275dp"
-        android:layout_height="59dp"
+        android:id="@+id/activity_register_name_text_input_layout"
+        android:layout_width="272dp"
+        android:layout_height="56dp"
         app:boxStrokeColor="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +61,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/activity_register_text_input_name"
+            android:id="@+id/activity_register_name_text_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/yellow"

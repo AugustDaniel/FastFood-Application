@@ -28,11 +28,8 @@ import com.fastfoodlib.util.Lap;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class ControllerActivity extends AppCompatActivity {
 
@@ -59,12 +56,12 @@ public class ControllerActivity extends AppCompatActivity {
             return insets;
         });
 
-        controllerLeft = findViewById(R.id.activity_controller_button_left);
-        controllerRight = findViewById(R.id.activity_controller_button_right);
-        controllerGasPedal = findViewById(R.id.activity_controller_button_gas_pedal);
-        controllerBreakPedal = findViewById(R.id.activity_controller_button_break_pedal);
+        controllerLeft = findViewById(R.id.activity_controller_left_button);
+        controllerRight = findViewById(R.id.activity_controller_right_button);
+        controllerGasPedal = findViewById(R.id.activity_controller_gas_pedal_button);
+        controllerBreakPedal = findViewById(R.id.activity_controller_break_pedal_button);
         background = findViewById(R.id.activity_controller_background_linear_layout);
-        countdownText = findViewById(R.id.activity_controller_countdown_text_view);
+        countdownText = findViewById(R.id.activity_controller_countdown_text);
         carNameText = findViewById(R.id.activity_controller_car_name_text);
 
 
