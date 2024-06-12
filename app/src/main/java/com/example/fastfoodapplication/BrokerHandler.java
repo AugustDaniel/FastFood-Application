@@ -99,9 +99,12 @@ public class BrokerHandler {
                     if (message.toString().equals("z")) {
                         if (hasPassedCheckpoint) {
                             System.out.println("lap done");
-                            LocalTime lap = LocalTime.now();
-                            System.out.println("new lap: " + lap);
-                            controllerActivity.sendLaps(lap);
+                            LocalTime minutes = LocalTime.now().minusMinutes(lapStart.getMinute());
+                            LocalTime seconds = LocalTime.now().minusSeconds(lapStart.getSecond());
+                            LocalTime nano = LocalTime.now().minusNanos(lapStart.getNano());
+                            LocalTime lapTime = LocalTime.of(0, minutes.getMinute(), seconds.getSecond(), nano.getNano());
+                            System.out.println("new lap: " + lapTime);
+                            controllerActivity.sendLaps(lapTime);
                         }
 
                         lapStart = LocalTime.now();
