@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fastfoodlib.util.Lap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +44,7 @@ public class FinishActivity extends AppCompatActivity {
     private String playerName;
     private String playerRank;
     private String playerScore;
+    private List<Lap> laps = new ArrayList<>();
 
     @StringRes private int status = R.string.waiting_on_results;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -60,7 +62,7 @@ public class FinishActivity extends AppCompatActivity {
         });
 
         lapRecyclerView = findViewById(R.id.activity_finish_recycler_view);
-        lapRecyclerViewAdapter = new LapAdapter(this, new ArrayList<>());
+        lapRecyclerViewAdapter = new LapAdapter(this, laps);
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -96,6 +98,7 @@ public class FinishActivity extends AppCompatActivity {
                 List<Lap> results = ServerHandler.getResults();
                 ServerHandler.disconnect();
                 Collections.sort(results);
+                laps = results;
 
                 Optional<Lap> personalBestOptional = results.stream()
                         .filter(lap -> lap.getName().equals(name))
@@ -128,13 +131,15 @@ public class FinishActivity extends AppCompatActivity {
         nameText.setText(playerName);
         rankText.setText(playerRank);
         scoreText.setText(playerScore);
+        lapRecyclerViewAdapter.setLaps(laps);
+        lapRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     private void restoreState(Bundle savedInstanceState) {
         playerName = savedInstanceState.getString("nameText");
         playerRank = savedInstanceState.getString("rankText");
         playerScore = savedInstanceState.getString("scoreText");
-
+        laps = (List<Lap>) savedInstanceState.getSerializable("laps");
         updateUI();
     }
 
@@ -144,5 +149,6 @@ public class FinishActivity extends AppCompatActivity {
         outState.putString("nameText", playerName);
         outState.putString("rankText", playerRank);
         outState.putString("scoreText", playerScore);
+        outState.putSerializable("laps", (Serializable) laps);
     }
 }
