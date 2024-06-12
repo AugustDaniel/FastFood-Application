@@ -68,7 +68,7 @@
             android:fadingEdge="vertical"
             android:fontFamily="@font/super_brigade"
             android:inputType="text"
-            android:maxLength="10"
+            android:maxLength="7"
             android:padding="0dp"
             android:singleLine="true"
             app:layout_constraintStart_toStartOf="@+id/activity_register_right_guideline"

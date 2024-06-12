@@ -69,7 +69,7 @@
             android:background="@color/yellow"
             android:fontFamily="@font/super_brigade"
             android:inputType="text"
-            android:maxLength="10"
+            android:maxLength="7"
             android:textColor="@color/black"
             android:textColorLink="@color/red" />
     </com.google.android.material.textfield.TextInputLayout>
