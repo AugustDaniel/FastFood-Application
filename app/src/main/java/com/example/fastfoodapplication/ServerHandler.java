@@ -14,7 +14,7 @@ import com.fastfoodlib.util.*;
 public class ServerHandler {
 
     private final static String logTag = ServerHandler.class.getName();
-    private static final String ipAddress = "145.49.39.222";
+    private static final String ipAddress = "192.168.1.103";
     private static final int port = 8000;
     private static Socket socket;
     private static ObjectInputStream input;

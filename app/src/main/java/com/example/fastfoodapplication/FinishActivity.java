@@ -43,7 +43,7 @@ public class FinishActivity extends AppCompatActivity {
     private List<Lap> laps = new ArrayList<>();
 
     @StringRes
-    private int status = R.string.waiting_on_results;
+    private int status = R.string.waiting_on_results_text;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
@@ -74,8 +74,8 @@ public class FinishActivity extends AppCompatActivity {
             Intent intent = new Intent(FinishActivity.this, StartActivity.class);
             startActivity(intent);
 
-            Toast.makeText(view.getContext(), R.string.thanks, Toast.LENGTH_LONG).show();
-            Toast.makeText(view.getContext(), R.string.see_leaderboard, Toast.LENGTH_LONG).show();
+            Toast.makeText(view.getContext(), R.string.thanks_text, Toast.LENGTH_LONG).show();
+            Toast.makeText(view.getContext(), R.string.leaderboard_toast_text, Toast.LENGTH_LONG).show();
         });
 
         if (savedInstanceState == null) {
@@ -108,7 +108,7 @@ public class FinishActivity extends AppCompatActivity {
                     playerRank = "#" + (results.indexOf(personalBest) + 1);
                     playerScore = personalBest.getLapTimeFormatted();
                 } else {
-                    playerName = getString(R.string.no_laps_set);
+                    playerName = getString(R.string.no_laps_set_text);
                 }
 
                 handler.post(() -> {
@@ -118,7 +118,7 @@ public class FinishActivity extends AppCompatActivity {
                 });
             } catch (Exception e) {
                 e.printStackTrace();
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.error_text), Toast.LENGTH_LONG).show());
                 finish();
             }
         });

@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/super_brigade"
-        android:text="@string/uitleg"
+        android:text="@string/explanation_title"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="32sp"

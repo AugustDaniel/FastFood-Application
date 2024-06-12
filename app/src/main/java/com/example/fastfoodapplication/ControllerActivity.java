@@ -75,7 +75,7 @@ public class ControllerActivity extends AppCompatActivity {
 
                     countdownText.setText(String.format("%o", counter));
                 } else {
-                    countdownText.setText(R.string.start);
+                    countdownText.setText(R.string.start_text);
                 }
             }
 
@@ -109,7 +109,7 @@ public class ControllerActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.error_text), Toast.LENGTH_LONG).show());
                 stopServer();
                 finish();
             }
@@ -134,7 +134,7 @@ public class ControllerActivity extends AppCompatActivity {
                 ServerHandler.sendLap(new Lap(name, lap, LocalDate.now()));
             } catch (Exception e) {
                 e.printStackTrace();
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.error_text), Toast.LENGTH_LONG).show());
                 stopServer();
                 finish();
             }

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FastFood</string>
-    <string name="explanation">Vul uw naam in en klik op ga verder</string>
+    <string name="explanation_text">Vul uw naam in en klik op ga verder</string>
     <string name="continue_text">Ga verder</string>
-    <string name="start">Start</string>
-    <string name="uitleg">Uitleg</string>
-    <string name="scorebord">Scorebord</string>
-    <string name="naam">Naam</string>
+    <string name="start_text">Start</string>
+    <string name="explanation_title">Uitleg</string>
+    <string name="leaderboard_title">Scorebord</string>
+    <string name="name_title">Naam</string>
     <string name="loading_text">Even geduld. De race begint binnekort.</string>
-    <string name="welkom_text">Welkom bij de Fastfood mobiele beleving van de Essteling.</string>
-    <string name="vul_naam_in">Vul naam in</string>
-    <string name="waiting_on_results">Aan het wachten op andere spelers</string>
-    <string name="filter_always">Altijd</string>
-    <string name="filter_day">Dag</string>
-    <string name="filter_week">Week</string>
-    <string name="filter_month">Maand</string>
-    <string name="filter_year">Jaar</string>
-    <string name="no_laps_set">Geen eigen laps</string>
-    <string name="er_is_iets_mis_gegaan">Er is iets mis gegaan</string>
+    <string name="welcome_text">Welkom bij de Fastfood mobiele beleving van de Essteling.</string>
+    <string name="fill_in_name_text">Vul naam in</string>
+    <string name="waiting_on_results_text">Aan het wachten op andere spelers</string>
+    <string name="filter_always_title">Altijd</string>
+    <string name="filter_day_title">Dag</string>
+    <string name="filter_week_title">Week</string>
+    <string name="filter_month_title">Maand</string>
+    <string name="filter_year_title">Jaar</string>
+    <string name="no_laps_set_text">Geen eigen laps</string>
+    <string name="error_text">Er is iets mis gegaan</string>
 
     <string-array name="filter_options">
-        <item>@string/filter_always</item>
-        <item>@string/filter_day</item>
-        <item>@string/filter_week</item>
-        <item>@string/filter_month</item>
-        <item>@string/filter_year</item>
+        <item>@string/filter_always_title</item>
+        <item>@string/filter_day_title</item>
+        <item>@string/filter_week_title</item>
+        <item>@string/filter_month_title</item>
+        <item>@string/filter_year_title</item>
     </string-array>
-    <string name="thanks">Dankjewel voor het spelen!</string>
-    <string name="see_leaderboard">Je kan je score bekijken in het Scorebord</string>
+    <string name="thanks_text">Dankjewel voor het spelen!</string>
+    <string name="leaderboard_toast_text">Je kan je score bekijken in het Scorebord</string>
 
 </resources>

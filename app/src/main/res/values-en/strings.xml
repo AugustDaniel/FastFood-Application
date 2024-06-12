@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FastFood</string>
-    <string name="explanation">Please enter your name and press on continue</string>
+    <string name="explanation_text">Please enter your name and press on continue</string>
     <string name="continue_text">Continue</string>
-    <string name="start">Start</string>
-    <string name="uitleg">Tutorial</string>
-    <string name="scorebord">Leaderboard</string>
-    <string name="naam">Name</string>
+    <string name="start_text">Start</string>
+    <string name="explanation_title">Tutorial</string>
+    <string name="leaderboard_title">Leaderboard</string>
+    <string name="name_title">Name</string>
     <string name="loading_text">Please be patient, the race will start soon</string>
-    <string name="welkom_text">Welcome to FastFood the mobile experience of The Essteling</string>
-    <string name="vul_naam_in">Enter your name</string>
-    <string name="waiting_on_results">Waiting for other players to finish</string>
-    <string name="filter_always">All</string>
-    <string name="filter_day">Day</string>
-    <string name="filter_week">Week</string>
-    <string name="filter_month">Month</string>
-    <string name="filter_year">Year</string>
-    <string name="no_laps_set">No laps set</string>
-    <string name="er_is_iets_mis_gegaan">Something went wrong</string>
-    <string name="thanks">Thank you for playing!</string>
-    <string name="see_leaderboard">You can view your score in the Leaderboard</string>
+    <string name="welcome_text">Welcome to FastFood the mobile experience of The Essteling</string>
+    <string name="fill_in_name_text">Enter your name</string>
+    <string name="waiting_on_results_text">Waiting for other players to finish</string>
+    <string name="filter_always_title">All</string>
+    <string name="filter_day_title">Day</string>
+    <string name="filter_week_title">Week</string>
+    <string name="filter_month_title">Month</string>
+    <string name="filter_year_title">Year</string>
+    <string name="no_laps_set_text">No laps set</string>
+    <string name="error_text">Something went wrong</string>
+    <string name="thanks_text">Thank you for playing!</string>
+    <string name="leaderboard_toast_text">You can view your score in the Leaderboard</string>
 
 </resources>

@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
             Log.v(logTag, continueButton.getId() + " clicked");
 
             if (textField.getText() == null || textField.getText().toString().isEmpty()) {
-                Toast.makeText(RegisterActivity.this, R.string.vul_naam_in, Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, R.string.fill_in_name_text, Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     ServerHandler.disconnect();
-                    handler.post(() -> Toast.makeText(RegisterActivity.this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                    handler.post(() -> Toast.makeText(RegisterActivity.this, getResources().getString(R.string.error_text), Toast.LENGTH_LONG).show());
                 }
             });
         });

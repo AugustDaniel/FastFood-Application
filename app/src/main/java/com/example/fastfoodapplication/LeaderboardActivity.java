@@ -90,7 +90,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.er_is_iets_mis_gegaan), Toast.LENGTH_LONG).show());
+                handler.post(() -> Toast.makeText(this, getResources().getString(R.string.error_text), Toast.LENGTH_LONG).show());
             }
         });
 

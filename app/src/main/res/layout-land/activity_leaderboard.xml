@@ -60,7 +60,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/super_brigade"
-        android:text="@string/scorebord"
+        android:text="@string/leaderboard_title"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
