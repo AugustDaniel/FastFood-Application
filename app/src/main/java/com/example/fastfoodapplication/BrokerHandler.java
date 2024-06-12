@@ -51,6 +51,7 @@ public class BrokerHandler {
 
     public String clientCar = "";
 
+    private boolean passedFinishAtStart;
     private boolean hasPassedCheckpoint;
     private LocalTime lapStart;
 
@@ -97,6 +98,7 @@ public class BrokerHandler {
                     System.out.println("Device coupled to Hardware topic: " + topic.toString().split("/")[4]);
                 } else if (carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())) {
                     if (message.toString().equals("z")) {
+
                         if (hasPassedCheckpoint) {
                             System.out.println("lap done");
                             LocalTime minutes = LocalTime.now().minusMinutes(lapStart.getMinute());
@@ -109,7 +111,8 @@ public class BrokerHandler {
 
                         lapStart = LocalTime.now();
                         hasPassedCheckpoint = false;
-                    } else if (message.toString().equals("w")) {
+                        passedFinishAtStart = true;
+                    } else if (passedFinishAtStart && message.toString().equals("w")) {
                         System.out.println("checkpoint reached");
                         hasPassedCheckpoint = true;
                     }
