@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/activity_finish_player_rank_text"
-        android:layout_width="98dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/super_brigade"
@@ -61,7 +61,7 @@
 
     <TextView
         android:id="@+id/activity_finish_player_score_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="@font/super_brigade"
