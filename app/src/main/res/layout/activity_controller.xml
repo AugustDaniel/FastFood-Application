@@ -80,7 +80,7 @@
         android:fontFamily="@font/super_brigade"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="60sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

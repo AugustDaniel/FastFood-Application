@@ -98,16 +98,17 @@ public class BrokerHandler {
                 } else if (carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())) {
                     if (message.toString().equals("z")) {
                         passedLineCount++;
-
-                        if(passedLineCount == 1){
+                        System.out.println(passedLineCount);
+                        if (passedLineCount == 1) {
                             lapStart = LocalTime.now();
-                        }else if (passedLineCount > 1) {
+                        } else if (passedLineCount > 1) {
                             System.out.println("lap done");
                             LocalTime minutes = LocalTime.now().minusMinutes(lapStart.getMinute());
                             LocalTime seconds = LocalTime.now().minusSeconds(lapStart.getSecond());
                             LocalTime nano = LocalTime.now().minusNanos(lapStart.getNano());
                             LocalTime lapTime = LocalTime.of(0, minutes.getMinute(), seconds.getSecond(), nano.getNano());
                             System.out.println("new lap: " + lapTime);
+                            passedLineCount = 0;
                             controllerActivity.sendLaps(lapTime);
                         }
 
