@@ -13,7 +13,7 @@ import com.fastfoodlib.util.*;
 
 public class ServerHandler {
 
-    private static final String IP_ADDRESS = "172.31.208.1";
+    private static final String IP_ADDRESS = "145.49.39.222";
     private static final int PORT = 8000;
     private final static String LOG_TAG = "SERVER_HANDLER";
     private static Socket socket;

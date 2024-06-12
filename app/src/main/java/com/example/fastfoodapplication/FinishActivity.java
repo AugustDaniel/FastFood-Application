@@ -33,13 +33,21 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FinishActivity extends AppCompatActivity {
-
     private RecyclerView lapRecyclerView;
     private LapAdapter lapRecyclerViewAdapter;
+    private TextView scoreText;
+    private TextView rankText;
+    private TextView nameText;
+    private Button buttonContinue;
+
+    private String playerName;
+    private String playerRank;
+    private String playerScore;
+
     @StringRes private int status = R.string.waiting_on_results;
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,26 +64,29 @@ public class FinishActivity extends AppCompatActivity {
         lapRecyclerView.setAdapter(lapRecyclerViewAdapter);
         lapRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        TextView scoreText = findViewById(R.id.activity_finish_player_score_text);
-        TextView rankText = findViewById(R.id.activity_finish_player_rank_text);
-        TextView nameText = findViewById(R.id.activity_finish_player_name_text);
-        Button buttonContinue = findViewById(R.id.activity_finish_button_continue);
+        scoreText = findViewById(R.id.activity_finish_player_score_text);
+        rankText = findViewById(R.id.activity_finish_player_rank_text);
+        nameText = findViewById(R.id.activity_finish_player_name_text);
+        buttonContinue = findViewById(R.id.activity_finish_button_continue);
 
         nameText.setText(status);
 
-        buttonContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Log.v(LOGTAG, buttonContinue.getId() + " clicked");
-                Intent intent = new Intent(FinishActivity.this, StartActivity.class);
-                startActivity(intent);
+        buttonContinue.setOnClickListener(view -> {
+            Intent intent = new Intent(FinishActivity.this, StartActivity.class);
+            startActivity(intent);
 
-                Toast.makeText(view.getContext(),R.string.thanks,Toast.LENGTH_LONG).show();
-                Toast.makeText(view.getContext(),R.string.see_leaderboard,Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(view.getContext(), R.string.thanks, Toast.LENGTH_LONG).show();
+            Toast.makeText(view.getContext(), R.string.see_leaderboard, Toast.LENGTH_LONG).show();
         });
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        if (savedInstanceState == null) {
+            loadResults();
+        } else {
+            restoreState(savedInstanceState);
+        }
+    }
+
+    private void loadResults() {
         Handler handler = new Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
@@ -86,8 +97,6 @@ public class FinishActivity extends AppCompatActivity {
                 ServerHandler.disconnect();
                 Collections.sort(results);
 
-                System.out.println("got results " + results.toString());
-
                 Optional<Lap> personalBestOptional = results.stream()
                         .filter(lap -> lap.getName().equals(name))
                         .findFirst();
@@ -95,18 +104,15 @@ public class FinishActivity extends AppCompatActivity {
                 if (personalBestOptional.isPresent()) {
                     Lap personalBest = personalBestOptional.get();
 
-                    handler.post(() -> {
-                        nameText.setText(name);
-                        rankText.setText("#"+  Integer.toString(results.indexOf(personalBest) + 1));
-                        scoreText.setText(personalBest.getLapTimeFormatted());
-                    });
+                    playerName = name;
+                    playerRank = "#" + (results.indexOf(personalBest) + 1);
+                    playerScore = personalBest.getLapTimeFormatted();
                 } else {
-                    handler.post(() -> {
-                        nameText.setText(R.string.no_laps_set);
-                    });
+                    playerName = getString(R.string.no_laps_set);
                 }
 
                 handler.post(() -> {
+                    updateUI();
                     lapRecyclerViewAdapter.setLaps(results);
                     lapRecyclerViewAdapter.notifyDataSetChanged();
                 });
@@ -118,17 +124,25 @@ public class FinishActivity extends AppCompatActivity {
         });
     }
 
+    private void updateUI() {
+        nameText.setText(playerName);
+        rankText.setText(playerRank);
+        scoreText.setText(playerScore);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
+        playerName = savedInstanceState.getString("nameText");
+        playerRank = savedInstanceState.getString("rankText");
+        playerScore = savedInstanceState.getString("scoreText");
+
+        updateUI();
+    }
+
     @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_finish);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_finish_root), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        TextView nameText = findViewById(R.id.activity_finish_player_name_text);
-        nameText.setText(R.string.waiting_on_results);
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("nameText", playerName);
+        outState.putString("rankText", playerRank);
+        outState.putString("scoreText", playerScore);
     }
 }

@@ -89,14 +89,14 @@ public class BrokerHandler {
                     publishMessage(topicPart, "t");
                     System.out.println("Device coupled to Hardware topic: " + topic.toString().split("/")[4]);
                 } else if (carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())) {
-                    System.out.println("Line message");
+//                    System.out.println("Line message");
+                    System.out.println(message);
                     if (message.toString().equals("z")) {
                         if (hasPassedCheckpoint) {
                             System.out.println("lap done");
                             LocalTime lap = LocalTime.now()
                                     .minusHours(lapStart.getHour())
                                     .minusMinutes(lapStart.getMinute())
-                                    .minusSeconds(lapStart.getSecond())
                                     .minusNanos(lapStart.getNano());
                             System.out.println("new lap: " + lap);
                             controllerActivity.sendLaps(lap);

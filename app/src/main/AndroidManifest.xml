@@ -44,7 +44,6 @@
             android:screenOrientation="userLandscape" />
         <activity
             android:name=".FinishActivity"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true" />
         <activity
             android:name=".StartActivity"
