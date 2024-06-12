@@ -36,7 +36,7 @@ public class ControllerActivity extends AppCompatActivity {
     private ImageButton controllerLeft;
     private ImageButton controllerRight;
     private ImageButton controllerGasPedal;
-    private ImageButton controllerBreakPedal;
+    private ImageButton controllerBrakePedal;
     public TextView carNameText;
     private LinearLayout background;
     private TextView countdownText;
@@ -57,7 +57,7 @@ public class ControllerActivity extends AppCompatActivity {
         controllerLeft = findViewById(R.id.activity_controller_left_button);
         controllerRight = findViewById(R.id.activity_controller_right_button);
         controllerGasPedal = findViewById(R.id.activity_controller_gas_pedal_button);
-        controllerBreakPedal = findViewById(R.id.activity_controller_break_pedal_button);
+        controllerBrakePedal = findViewById(R.id.activity_controller_brake_pedal_button);
         background = findViewById(R.id.activity_controller_background_linear_layout);
         countdownText = findViewById(R.id.activity_controller_countdown_text);
         carNameText = findViewById(R.id.activity_controller_car_name_text);
@@ -191,16 +191,16 @@ public class ControllerActivity extends AppCompatActivity {
             }
             return true;
         });
-        controllerBreakPedal.setOnTouchListener((v, event) -> {
+        controllerBrakePedal.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Log.v(logTag, controllerBreakPedal.getId() + " clicked");
+                Log.v(logTag, controllerBrakePedal.getId() + " clicked");
                 BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK, "t");
-                controllerBreakPedal.setImageResource(R.drawable.pedal_red_pressed);
+                controllerBrakePedal.setImageResource(R.drawable.pedal_red_pressed);
 
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                Log.v(logTag, controllerBreakPedal.getId() + " released");
+                Log.v(logTag, controllerBrakePedal.getId() + " released");
                 BrokerHandler.instance.publishMessage(BrokerHandler.topicType.BREAK, "f");
-                controllerBreakPedal.setImageResource(R.drawable.pedal_red);
+                controllerBrakePedal.setImageResource(R.drawable.pedal_red);
             }
             return true;
         });
