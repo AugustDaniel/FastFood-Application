@@ -122,6 +122,13 @@ public class ControllerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void finish() {
+        BrokerHandler.instance.setIsOnController(false);
+        BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RESET,"t");
+        super.finish();
+    }
+
     public void sendLaps(LocalTime lap) {
         Handler handler = new Handler(Looper.getMainLooper());
         System.out.println("laptime " + lap.toString());

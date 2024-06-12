@@ -36,9 +36,6 @@ public class ServerHandler {
         Log.d(LOG_TAG, "Disconnecting socket");
         try {
             if (socket != null) socket.close();
-            if (input != null) input.close();
-            if (output != null) output.close();
-            if (socket != null) socket.close();
             input = null;
             output = null;
             socket = null;

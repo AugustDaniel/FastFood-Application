@@ -47,12 +47,14 @@ public class BrokerHandler {
 
     private MqttAndroidClient mqttAndroidClient;
 
-    public enum topicType {LEFT, RIGHT, GAS, BREAK, LINE}
+    public enum topicType {LEFT, RIGHT, GAS, BREAK, LINE, RESET}
 
     public String clientCar = "";
 
     private boolean hasPassedCheckpoint;
     private LocalTime lapStart;
+
+    private volatile boolean isOnController;
 
     private BrokerHandler() {
     }
@@ -62,7 +64,7 @@ public class BrokerHandler {
 //        this.context = context;
         mqttAndroidClient = new MqttAndroidClient(context, BROKER_HOST_URL, CLIENT_ID);
 
-
+        isOnController = true;
         mqttAndroidClient.setCallback(new MqttCallback() {
             @Override
             public void connectionLost(Throwable cause) {
@@ -77,9 +79,14 @@ public class BrokerHandler {
                 String carTopic = topic.toString().split("/")[4];
                 String secondaryTopic = topic.toString().split("/")[5];
 
-                System.out.println(clientCar);
-                System.out.println(carTopic);
-                System.out.println(secondaryTopic);
+//                System.out.println(clientCar);
+//                System.out.println(carTopic);
+//                System.out.println(secondaryTopic);
+
+                System.out.println(isOnController);
+                if (!isOnController) {
+                    return;
+                }
 
                 if (Objects.equals(secondaryTopic, "isClaimed") && message.toString().equals("f") && clientCar.length() == 0) {
 
@@ -89,15 +96,10 @@ public class BrokerHandler {
                     publishMessage(topicPart, "t");
                     System.out.println("Device coupled to Hardware topic: " + topic.toString().split("/")[4]);
                 } else if (carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())) {
-//                    System.out.println("Line message");
-                    System.out.println(message);
                     if (message.toString().equals("z")) {
                         if (hasPassedCheckpoint) {
                             System.out.println("lap done");
-                            LocalTime lap = LocalTime.now()
-                                    .minusHours(lapStart.getHour())
-                                    .minusMinutes(lapStart.getMinute())
-                                    .minusNanos(lapStart.getNano());
+                            LocalTime lap = LocalTime.now();
                             System.out.println("new lap: " + lap);
                             controllerActivity.sendLaps(lap);
                         }
@@ -206,5 +208,12 @@ public class BrokerHandler {
         }
     }
 
+    public void setIsOnController(boolean b) {
+        isOnController = b;
+
+        if (mqttAndroidClient != null) {
+            mqttAndroidClient.close();
+        }
+    }
 }
 
