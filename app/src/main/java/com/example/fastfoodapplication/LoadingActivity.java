@@ -33,6 +33,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "LOADING_ACTIVITY";
     private ImageView spinner;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +52,12 @@ public class LoadingActivity extends AppCompatActivity {
         rotate.setDuration(360 * 999 * 10);
         rotate.setInterpolator(new LinearInterpolator());
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
         executor.execute(() -> {
             try {
                 ServerHandler.waitForStart();
+                System.out.println("done waiting for start");
                 handler.post(() -> {
                     Intent intent = new Intent(LoadingActivity.this, ControllerActivity.class);
                     startActivity(intent);

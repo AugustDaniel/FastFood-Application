@@ -7,9 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.security.cert.PKIXRevocationChecker;
 import java.util.List;
-import java.util.Set;
 
 import com.fastfoodlib.util.*;
 
@@ -85,6 +83,11 @@ public class ServerHandler {
                 break;
             }
         }
+    }
+
+    public static boolean waitForTimeOut() throws IOException {
+        System.out.println("waiting for timeout");
+        return input.readBoolean();
     }
 
     public static List<Lap> getResults() throws IOException, ClassNotFoundException {

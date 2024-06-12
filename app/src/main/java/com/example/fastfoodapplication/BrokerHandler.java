@@ -29,7 +29,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class BrokerHandler{
+public class BrokerHandler {
     private static final String LOGTAG = "BrokerHandler";
 
     public static BrokerHandler instance = new BrokerHandler();
@@ -47,22 +47,18 @@ public class BrokerHandler{
 
     private MqttAndroidClient mqttAndroidClient;
 
-    public enum topicType {LEFT,RIGHT,GAS,BREAK,LINE}
+    public enum topicType {LEFT, RIGHT, GAS, BREAK, LINE}
+
     public String clientCar = "";
 
     private boolean hasPassedCheckpoint;
     private LocalTime lapStart;
-    private ArrayList<LocalTime> laps;
-    private final int lapsAmmount = 3;
 
-
-
-    private BrokerHandler(){
-        this.laps = new ArrayList<>();
+    private BrokerHandler() {
     }
 
 
-    public void createConnection(Context context, ControllerActivity controllerActivity){
+    public void createConnection(Context context, ControllerActivity controllerActivity) {
 //        this.context = context;
         mqttAndroidClient = new MqttAndroidClient(context, BROKER_HOST_URL, CLIENT_ID);
 
@@ -75,7 +71,7 @@ public class BrokerHandler{
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
-                Log.d(LOGTAG, "MQTT client received message " + message.toString() + " on topic " + topic);
+//                Log.d(LOGTAG, "MQTT client received message " + message.toString() + " on topic " + topic);
                 // Check what topic the message is for and handle accordingly
 
                 String carTopic = topic.toString().split("/")[4];
@@ -85,33 +81,31 @@ public class BrokerHandler{
                 System.out.println(carTopic);
                 System.out.println(secondaryTopic);
 
-                if(Objects.equals(secondaryTopic, "isClaimed") && message.toString().equals("f") && clientCar.length() == 0){
+                if (Objects.equals(secondaryTopic, "isClaimed") && message.toString().equals("f") && clientCar.length() == 0) {
 
-                    clientCar =  carTopic;
+                    clientCar = carTopic;
                     controllerActivity.carNameText.setText(clientCar);
-                    String topicPart = topic.toString().split("/")[4]+"/isClaimed";
+                    String topicPart = topic.toString().split("/")[4] + "/isClaimed";
                     publishMessage(topicPart, "t");
-                    System.out.println("Device coupled to Hardware topic: "+ topic.toString().split("/")[4]);
-                }
-                else if(carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())){
+                    System.out.println("Device coupled to Hardware topic: " + topic.toString().split("/")[4]);
+                } else if (carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())) {
 //                    System.out.println("Line message");
-                    if(message.toString().equals("z")){
-                        if(hasPassedCheckpoint){
+                    System.out.println(message);
+                    if (message.toString().equals("z")) {
+                        if (hasPassedCheckpoint) {
+                            System.out.println("lap done");
                             LocalTime lap = LocalTime.now()
                                     .minusHours(lapStart.getHour())
                                     .minusMinutes(lapStart.getMinute())
-                                    .minusSeconds(lapStart.getSecond())
                                     .minusNanos(lapStart.getNano());
-                            System.out.println("new lap: "+lap);
-                            laps.add(lap);
-                            if(laps.size() == lapsAmmount){
-                                controllerActivity.sendLaps(laps);
-                            }
+                            System.out.println("new lap: " + lap);
+                            controllerActivity.sendLaps(lap);
                         }
 
                         lapStart = LocalTime.now();
                         hasPassedCheckpoint = false;
-                    }else if(message.toString().equals("r")){
+                    } else if (message.toString().equals("r")) {
+                        System.out.println("checkpoint reached");
                         hasPassedCheckpoint = true;
                     }
 
@@ -127,6 +121,7 @@ public class BrokerHandler{
 
         connectToBroker(mqttAndroidClient, null);
     }
+
     private void connectToBroker(MqttAndroidClient client, String clientId) {
         // Set up connection options for the connection to the MQTT broker
         MqttConnectOptions options = new MqttConnectOptions();
@@ -160,9 +155,9 @@ public class BrokerHandler{
         }
     }
 
-    public void publishMessage(String topic, String msg){
+    public void publishMessage(String topic, String msg) {
         String finalTopic = TOPIC_BASE + topic;
-        System.out.println("publishing message to topic: " +finalTopic);
+        System.out.println("publishing message to topic: " + finalTopic);
         byte[] encodedPayload = new byte[0];
         try {
             // Convert the message to a UTF-8 encoded byte array
@@ -180,13 +175,14 @@ public class BrokerHandler{
             e.printStackTrace();
         }
     }
+
     public void publishMessage(topicType topicType, String msg) {
-        String topic = clientCar+ "/" +topicType.toString();
+        String topic = clientCar + "/" + topicType.toString();
         publishMessage(topic, msg);
     }
 
     private void subscribeToTopic(String topic) {
-        String finalTopic = TOPIC_BASE+topic;
+        String finalTopic = TOPIC_BASE + topic;
         try {
             // Try to subscribe to the topic
             IMqttToken token = mqttAndroidClient.subscribe(finalTopic, QUALITY_OF_SERVICE);

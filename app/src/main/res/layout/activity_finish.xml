@@ -24,9 +24,10 @@
         android:layout_height="52dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/super_brigade"
-        android:text="#1"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="48sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@id/activity_finish_right_vertical_guideline"
         app:layout_constraintStart_toStartOf="@id/activity_finish_left_vertical_guideline"
         app:layout_constraintTop_toTopOf="@id/activity_finish_logo_guideline" />
@@ -37,9 +38,10 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="@font/super_brigade"
-        android:text="Jane Doe"
+        android:text=""
         android:textSize="40sp"
         android:layout_marginTop="16dp"
+        android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/activity_finish_player_rank_text"
         app:layout_constraintStart_toStartOf="@id/activity_finish_player_rank_text"
         app:layout_constraintEnd_toEndOf="@id/activity_finish_player_rank_text" />
@@ -50,9 +52,9 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:fontFamily="@font/super_brigade"
-        android:text="1:20:02"
         android:textSize="40sp"
         android:layout_marginTop="8dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@id/activity_finish_player_name_text"
         app:layout_constraintStart_toStartOf="@id/activity_finish_player_name_text"
         app:layout_constraintTop_toBottomOf="@id/activity_finish_player_name_text" />
@@ -82,21 +84,23 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_finish_recycler_view"
         android:layout_width="345dp"
-        android:layout_height="325dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@id/activity_finish_right_vertical_guideline"
         app:layout_constraintStart_toStartOf="@id/activity_finish_left_vertical_guideline"
+        app:layout_constraintBottom_toTopOf="@id/activity_finish_button_continue"
         app:layout_constraintTop_toBottomOf="@+id/activity_finish_player_score_text" />
 
     <Button
         android:id="@+id/activity_finish_button_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/red"
         android:fontFamily="@font/superbrigade"
         android:text="@string/continue_text"
         app:layout_constraintEnd_toStartOf="@+id/activity_finish_right_vertical_guideline"
         app:layout_constraintStart_toStartOf="@+id/activity_finish_left_vertical_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/activity_finish_recycler_view" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
