@@ -45,7 +45,7 @@ public class ControllerActivity extends AppCompatActivity{
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
 
-    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +101,7 @@ public class ControllerActivity extends AppCompatActivity{
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setOnTouch() {
 
         controllerLeft.setOnTouchListener(new View.OnTouchListener() {
@@ -192,6 +193,7 @@ public class ControllerActivity extends AppCompatActivity{
                 handler.post(() -> {
                     Intent intent = new Intent(ControllerActivity.this, FinishActivity.class);
                     startActivity(intent);
+                    BrokerHandler.instance.publishMessage(BrokerHandler.topicType.RESET,"t");
                     finish();
                 });
             } catch (Exception e) {
