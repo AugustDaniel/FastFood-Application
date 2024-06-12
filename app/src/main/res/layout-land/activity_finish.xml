@@ -10,15 +10,15 @@
 
     <Button
         android:id="@+id/activity_finish_button_continue"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/red"
         android:fontFamily="@font/superbrigade"
         android:text="@string/continue_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/activity_finish_player_score_text"
-        app:layout_constraintStart_toStartOf="@+id/activity_finish_player_score_text" />
+        app:layout_constraintEnd_toEndOf="@+id/activity_finish_right_button_guideline"
+        app:layout_constraintStart_toStartOf="@+id/activity_finish_left_button_guideline" />
 
     <include
         android:id="@+id/activity_leaderboard_logo"
@@ -74,19 +74,11 @@
         app:layout_constraintTop_toBottomOf="@id/activity_finish_player_name_text" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_finish_right_vertical_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="102dp"
-        app:layout_constraintGuide_percent="0.9"/>
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_finish_middle_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/activity_finish_logo_guideline"
@@ -99,9 +91,24 @@
         android:id="@+id/activity_finish_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="@id/activity_finish_middle_guideline"
-        app:layout_constraintEnd_toEndOf="@id/activity_finish_right_vertical_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/activity_finish_logo_guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_finish_left_button_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/activity_finish_right_button_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
