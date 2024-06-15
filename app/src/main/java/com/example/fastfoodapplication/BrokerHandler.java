@@ -78,8 +78,7 @@ public class BrokerHandler {
                     publishMessage(topicPart, "t");
                     Log.d(logTag, "Device coupled to Hardware topic: " + topic.split("/")[4]);
                 } else if (carTopic.equals(clientCar) && secondaryTopic.equals(topicType.LINE.toString())) {
-                    if (message.toString().equals("z")) {
-
+                    if (message.toString().equals("z")) { //black line seen
                         if (hasPassedCheckpoint) {
                             Log.d(logTag, "lap done");
                             LocalTime minutes = LocalTime.now().minusMinutes(lapStart.getMinute());
@@ -93,7 +92,7 @@ public class BrokerHandler {
                         lapStart = LocalTime.now();
                         hasPassedCheckpoint = false;
                         passedFinishAtStart = true;
-                    } else if (passedFinishAtStart && message.toString().equals("w")) {
+                    } else if (passedFinishAtStart && message.toString().equals("w")) { // white line seen
                         Log.d(logTag, "checkpoint reached");
                         hasPassedCheckpoint = true;
                     }
