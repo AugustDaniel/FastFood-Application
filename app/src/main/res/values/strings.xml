@@ -7,7 +7,7 @@
     <string name="leaderboard_title">Leaderboard</string>
     <string name="name_title">Name</string>
     <string name="loading_text">Please be patient, the race will start soon</string>
-    <string name="welcome_text">Welcome to FastFood the mobile experience of The Essteling</string>
+    <string name="welcome_text">Welcome to FastFood, the mobile experience of The Essteling</string>
     <string name="fill_in_name_text">Enter your name</string>
     <string name="waiting_on_results_text">Waiting for other players to finish</string>
     <string name="filter_always_title">All</string>

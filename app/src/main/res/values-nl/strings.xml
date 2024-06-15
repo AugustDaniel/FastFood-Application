@@ -7,8 +7,8 @@
     <string name="explanation_title">Uitleg</string>
     <string name="leaderboard_title">Scorebord</string>
     <string name="name_title">Naam</string>
-    <string name="loading_text">Even geduld. De race begint binnekort.</string>
-    <string name="welcome_text">Welkom bij de Fastfood mobiele beleving van de Essteling.</string>
+    <string name="loading_text">Even geduld, de race begint binnekort</string>
+    <string name="welcome_text">Welkom bij de Fastfood mobiele beleving van de Essteling</string>
     <string name="fill_in_name_text">Vul naam in</string>
     <string name="waiting_on_results_text">Aan het wachten op andere spelers</string>
     <string name="filter_always_title">Altijd</string>
